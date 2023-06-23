@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models
+ * @package   Modules\EquipmentManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\EquipmentManagement\Models;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\Localization\BaseStringL11n;
@@ -20,7 +20,7 @@ use phpOMS\Localization\BaseStringL11n;
 /**
  *  mapper class.
  *
- * @package Modules\FleetManagement\Models
+ * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -37,10 +37,10 @@ final class InspectionTypeL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_inspection_type_l11n_id'    => ['name' => 'fleetmgmt_inspection_type_l11n_id',    'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_inspection_type_l11n_title' => ['name' => 'fleetmgmt_inspection_type_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'fleetmgmt_inspection_type_l11n_type'  => ['name' => 'fleetmgmt_inspection_type_l11n_type',  'type' => 'int',    'internal' => 'ref'],
-        'fleetmgmt_inspection_type_l11n_lang'  => ['name' => 'fleetmgmt_inspection_type_l11n_lang',  'type' => 'string', 'internal' => 'language'],
+        'equipmgmt_inspection_type_l11n_id'    => ['name' => 'equipmgmt_inspection_type_l11n_id',    'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_inspection_type_l11n_title' => ['name' => 'equipmgmt_inspection_type_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'equipmgmt_inspection_type_l11n_type'  => ['name' => 'equipmgmt_inspection_type_l11n_type',  'type' => 'int',    'internal' => 'ref'],
+        'equipmgmt_inspection_type_l11n_lang'  => ['name' => 'equipmgmt_inspection_type_l11n_lang',  'type' => 'string', 'internal' => 'language'],
     ];
 
     /**
@@ -49,7 +49,7 @@ final class InspectionTypeL11nMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_inspection_type_l11n';
+    public const TABLE = 'equipmgmt_inspection_type_l11n';
 
     /**
      * Primary field name.
@@ -57,7 +57,7 @@ final class InspectionTypeL11nMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_inspection_type_l11n_id';
+    public const PRIMARYFIELD = 'equipmgmt_inspection_type_l11n_id';
 
     /**
      * Model to use by the mapper.

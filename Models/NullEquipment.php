@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models\Driver
+ * @package   Modules\EquipmentManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,17 +12,17 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models\Driver;
+namespace Modules\EquipmentManagement\Models;
 
 /**
  * Null model
  *
- * @package Modules\FleetManagement\Models\Driver
+ * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class NullDriverInspection extends DriverInspection
+final class NullEquipment extends Equipment
 {
     /**
      * Constructor
@@ -34,6 +34,7 @@ final class NullDriverInspection extends DriverInspection
     public function __construct(int $id = 0)
     {
         $this->id = $id;
+        parent::__construct();
     }
 
     /**

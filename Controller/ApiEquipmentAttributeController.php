@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement
+ * @package   Modules\EquipmentManagement
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,18 +12,18 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Controller;
+namespace Modules\EquipmentManagement\Controller;
 
 use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Models\AttributeType;
 use Modules\Attribute\Models\AttributeValue;
 use Modules\Attribute\Models\NullAttributeType;
 use Modules\Attribute\Models\NullAttributeValue;
-use Modules\FleetManagement\Models\VehicleAttributeMapper;
-use Modules\FleetManagement\Models\VehicleAttributeTypeL11nMapper;
-use Modules\FleetManagement\Models\VehicleAttributeTypeMapper;
-use Modules\FleetManagement\Models\VehicleAttributeValueL11nMapper;
-use Modules\FleetManagement\Models\VehicleAttributeValueMapper;
+use Modules\EquipmentManagement\Models\EquipmentAttributeMapper;
+use Modules\EquipmentManagement\Models\EquipmentAttributeTypeL11nMapper;
+use Modules\EquipmentManagement\Models\EquipmentAttributeTypeMapper;
+use Modules\EquipmentManagement\Models\EquipmentAttributeValueL11nMapper;
+use Modules\EquipmentManagement\Models\EquipmentAttributeValueMapper;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -33,17 +33,17 @@ use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 
 /**
- * FleetManagement class.
+ * EquipmentManagement class.
  *
- * @package Modules\FleetManagement
+ * @package Modules\EquipmentManagement
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class ApiVehicleAttributeController extends Controller
+final class ApiEquipmentAttributeController extends Controller
 {
     /**
-     * Api method to create vehicle attribute
+     * Api method to create equipment attribute
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -55,23 +55,23 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeCreate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeCreate($request))) {
             $response->data['attribute_create'] = new FormValidation($val);
             $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
 
-        $attribute = $this->createVehicleAttributeFromRequest($request);
-        $this->createModel($request->header->account, $attribute, VehicleAttributeMapper::class, 'attribute', $request->getOrigin());
+        $attribute = $this->createEquipmentAttributeFromRequest($request);
+        $this->createModel($request->header->account, $attribute, EquipmentAttributeMapper::class, 'attribute', $request->getOrigin());
 
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute', 'Attribute successfully created', $attribute);
     }
 
     /**
-     * Method to create vehicle attribute from request.
+     * Method to create equipment attribute from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -79,10 +79,10 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function createVehicleAttributeFromRequest(RequestAbstract $request) : Attribute
+    private function createEquipmentAttributeFromRequest(RequestAbstract $request) : Attribute
     {
         $attribute       = new Attribute();
-        $attribute->ref  = (int) $request->getData('vehicle');
+        $attribute->ref  = (int) $request->getData('equipment');
         $attribute->type = new NullAttributeType((int) $request->getData('type'));
 
         if ($request->hasData('value')) {
@@ -100,7 +100,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Validate vehicle attribute create request
+     * Validate equipment attribute create request
      *
      * @param RequestAbstract $request Request
      *
@@ -108,12 +108,12 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateVehicleAttributeCreate(RequestAbstract $request) : array
+    private function validateEquipmentAttributeCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['type'] = !$request->hasData('type'))
             || ($val['value'] = (!$request->hasData('value') && !$request->hasData('custom')))
-            || ($val['vehicle'] = !$request->hasData('vehicle'))
+            || ($val['equipment'] = !$request->hasData('equipment'))
         ) {
             return $val;
         }
@@ -122,7 +122,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Api method to create vehicle attribute
+     * Api method to create equipment attribute
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -134,34 +134,34 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttributeUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeUpdate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeUpdate($request))) {
             $response->data['attribute_update'] = new FormValidation($val);
             $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
 
-        $old = VehicleAttributeMapper::get()
+        $old = EquipmentAttributeMapper::get()
             ->with('type')
             ->with('type/defaults')
             ->with('value')
             ->where('id', (int) $request->getData('id'))
             ->execute();
 
-        $new = $this->updateVehicleAttributeFromRequest($request, $old->deepClone());
-        $this->updateModel($request->header->account, $old, $new, VehicleAttributeMapper::class, 'attribute', $request->getOrigin());
+        $new = $this->updateEquipmentAttributeFromRequest($request, $old->deepClone());
+        $this->updateModel($request->header->account, $old, $new, EquipmentAttributeMapper::class, 'attribute', $request->getOrigin());
 
         if ($new->value->getValue() !== $old->value->getValue()) {
-            $this->updateModel($request->header->account, $old->value, $new->value, VehicleAttributeValueMapper::class, 'attribute_value', $request->getOrigin());
+            $this->updateModel($request->header->account, $old->value, $new->value, EquipmentAttributeValueMapper::class, 'attribute_value', $request->getOrigin());
         }
 
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute', 'Attribute successfully updated', $new);
     }
 
     /**
-     * Method to create vehicle attribute from request.
+     * Method to create equipment attribute from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -169,7 +169,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function updateVehicleAttributeFromRequest(RequestAbstract $request, Attribute $attribute) : Attribute
+    private function updateEquipmentAttributeFromRequest(RequestAbstract $request, Attribute $attribute) : Attribute
     {
         if ($attribute->type->custom) {
             if ($request->hasData('value')) {
@@ -192,7 +192,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Validate vehicle attribute create request
+     * Validate equipment attribute create request
      *
      * @param RequestAbstract $request Request
      *
@@ -200,7 +200,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateVehicleAttributeUpdate(RequestAbstract $request) : array
+    private function validateEquipmentAttributeUpdate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['id'] = !$request->hasData('id'))
@@ -212,7 +212,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Api method to create vehicle attribute l11n
+     * Api method to create equipment attribute l11n
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -224,22 +224,22 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeTypeL11nCreate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeTypeL11nCreate($request))) {
             $response->data['attr_type_l11n_create'] = new FormValidation($val);
             $response->header->status                = RequestStatusCode::R_400;
 
             return;
         }
 
-        $attrL11n = $this->createVehicleAttributeTypeL11nFromRequest($request);
-        $this->createModel($request->header->account, $attrL11n, VehicleAttributeTypeL11nMapper::class, 'attr_type_l11n', $request->getOrigin());
+        $attrL11n = $this->createEquipmentAttributeTypeL11nFromRequest($request);
+        $this->createModel($request->header->account, $attrL11n, EquipmentAttributeTypeL11nMapper::class, 'attr_type_l11n', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
     }
 
     /**
-     * Method to create vehicle attribute l11n from request.
+     * Method to create equipment attribute l11n from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -247,7 +247,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function createVehicleAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    private function createEquipmentAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
         $attrL11n      = new BaseStringL11n();
         $attrL11n->ref = $request->getDataInt('type') ?? 0;
@@ -260,7 +260,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Validate vehicle attribute l11n create request
+     * Validate equipment attribute l11n create request
      *
      * @param RequestAbstract $request Request
      *
@@ -268,7 +268,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateVehicleAttributeTypeL11nCreate(RequestAbstract $request) : array
+    private function validateEquipmentAttributeTypeL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['title'] = !$request->hasData('title'))
@@ -281,7 +281,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Api method to create vehicle attribute type
+     * Api method to create equipment attribute type
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -293,9 +293,9 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeTypeCreate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeTypeCreate($request))) {
             $response->data['attr_type_create'] = new FormValidation($val);
             $response->header->status           = RequestStatusCode::R_400;
 
@@ -303,13 +303,13 @@ final class ApiVehicleAttributeController extends Controller
         }
 
         $attrType = $this->createAttributeTypeFromRequest($request);
-        $this->createModel($request->header->account, $attrType, VehicleAttributeTypeMapper::class, 'attr_type', $request->getOrigin());
+        $this->createModel($request->header->account, $attrType, EquipmentAttributeTypeMapper::class, 'attr_type', $request->getOrigin());
 
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Attribute type', 'Attribute type successfully created', $attrType);
     }
 
     /**
-     * Method to create vehicle attribute from request.
+     * Method to create equipment attribute from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -331,7 +331,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Validate vehicle attribute create request
+     * Validate equipment attribute create request
      *
      * @param RequestAbstract $request Request
      *
@@ -339,7 +339,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateVehicleAttributeTypeCreate(RequestAbstract $request) : array
+    private function validateEquipmentAttributeTypeCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['title'] = !$request->hasData('title'))
@@ -352,7 +352,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Api method to create vehicle attribute value
+     * Api method to create equipment attribute value
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -364,9 +364,9 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeValueCreate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeValueCreate($request))) {
             $response->data['attr_value_create'] = new FormValidation($val);
             $response->header->status            = RequestStatusCode::R_400;
 
@@ -374,14 +374,14 @@ final class ApiVehicleAttributeController extends Controller
         }
 
         $attrValue = $this->createAttributeValueFromRequest($request);
-        $this->createModel($request->header->account, $attrValue, VehicleAttributeValueMapper::class, 'attr_value', $request->getOrigin());
+        $this->createModel($request->header->account, $attrValue, EquipmentAttributeValueMapper::class, 'attr_value', $request->getOrigin());
 
         if ($attrValue->isDefault) {
             $this->createModelRelation(
                 $request->header->account,
                 (int) $request->getData('type'),
                 $attrValue->id,
-                VehicleAttributeTypeMapper::class, 'defaults', '', $request->getOrigin()
+                EquipmentAttributeTypeMapper::class, 'defaults', '', $request->getOrigin()
             );
         }
 
@@ -389,7 +389,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Method to create vehicle attribute value from request.
+     * Method to create equipment attribute value from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -400,7 +400,7 @@ final class ApiVehicleAttributeController extends Controller
     private function createAttributeValueFromRequest(RequestAbstract $request) : AttributeValue
     {
         /** @var AttributeType $type */
-        $type = VehicleAttributeTypeMapper::get()
+        $type = EquipmentAttributeTypeMapper::get()
             ->where('id', $request->getDataInt('type') ?? 0)
             ->execute();
 
@@ -416,7 +416,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Validate vehicle attribute value create request
+     * Validate equipment attribute value create request
      *
      * @param RequestAbstract $request Request
      *
@@ -424,7 +424,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateVehicleAttributeValueCreate(RequestAbstract $request) : array
+    private function validateEquipmentAttributeValueCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['type'] = !$request->hasData('type'))
@@ -437,7 +437,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Api method to create vehicle attribute l11n
+     * Api method to create equipment attribute l11n
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -449,9 +449,9 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeValueL11nCreate($request))) {
             $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status                 = RequestStatusCode::R_400;
 
@@ -459,12 +459,12 @@ final class ApiVehicleAttributeController extends Controller
         }
 
         $attrL11n = $this->createAttributeValueL11nFromRequest($request);
-        $this->createModel($request->header->account, $attrL11n, VehicleAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
+        $this->createModel($request->header->account, $attrL11n, EquipmentAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
     }
 
     /**
-     * Method to create vehicle attribute l11n from request.
+     * Method to create equipment attribute l11n from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -485,7 +485,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Validate vehicle attribute l11n create request
+     * Validate equipment attribute l11n create request
      *
      * @param RequestAbstract $request Request
      *
@@ -493,7 +493,7 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateVehicleAttributeValueL11nCreate(RequestAbstract $request) : array
+    private function validateEquipmentAttributeValueL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['title'] = !$request->hasData('title'))
@@ -506,7 +506,7 @@ final class ApiVehicleAttributeController extends Controller
     }
 
     /**
-     * Api method to handle api vehicle attributes
+     * Api method to handle api equipment attributes
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -518,9 +518,9 @@ final class ApiVehicleAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiVehicleAttribute(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentAttribute(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateVehicleAttributeValueL11nCreate($request))) {
+        if (!empty($val = $this->validateEquipmentAttributeValueL11nCreate($request))) {
             $response->data['attr_value_l11n_create'] = new FormValidation($val);
             $response->header->status                 = RequestStatusCode::R_400;
 
@@ -528,7 +528,7 @@ final class ApiVehicleAttributeController extends Controller
         }
 
         $attrL11n = $this->createAttributeValueL11nFromRequest($request);
-        $this->createModel($request->header->account, $attrL11n, VehicleAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
+        $this->createModel($request->header->account, $attrL11n, EquipmentAttributeValueL11nMapper::class, 'attr_value_l11n', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $attrL11n);
     }
 }

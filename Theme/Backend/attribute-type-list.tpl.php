@@ -55,7 +55,7 @@ echo $this->data['nav']->render(); ?>
                 <?php
                 $count = 0;
                 foreach ($attributes as $key => $value) : ++$count;
-                    $url = UriFactory::build('{/base}/fleet/vehicle/attribute/type?{?}&id=' . $value->id);
+                    $url = UriFactory::build('{/base}/fleet/equipment/attribute/type?{?}&id=' . $value->id);
                 ?>
                 <tr data-href="<?= $url; ?>">
                     <td><a href="<?= $url; ?>"><?= $value->id; ?></a>

@@ -13,12 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'FleetManagement'   => 'Fleet Management',
-    'Vehicles'          => 'Vehicles',
-    'Drivers'           => 'Drivers',
+    'EquipmentManagement'   => 'Equipment Management',
+    'Equipments'          => 'Equipments',
     'Inspections'        => 'Inspections',
-    'VehicleInspectionTypes' => 'Vehicle Inspection Types',
-    'DriverInspectionTypes'  => 'Driver Inspection Types',
-    'VehicleAttributes' => 'Vehicle Attributes',
-    'DriverAttributes'  => 'Driver Attributes',
+    'EquipmentInspectionTypes' => 'Equipment Inspection Types',
+    'EquipmentAttributes' => 'Equipment Attributes',
 ]];

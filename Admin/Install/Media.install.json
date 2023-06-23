@@ -1,7 +1,7 @@
 [
     {
         "type": "type",
-        "name": "vehicle_profile_image",
+        "name": "equipment_profile_image",
         "l11n": [
             {
                 "title": "Profile image",
@@ -16,15 +16,15 @@
     {
         "type": "collection",
         "create_directory": true,
-        "name": "FleetManagement",
+        "name": "EquipmentManagement",
         "virtualPath": "/Modules",
         "user": 1
     },
     {
         "type": "collection",
         "create_directory": true,
-        "name": "Vehicle",
-        "virtualPath": "/Modules/FleetManagement",
+        "name": "Equipment",
+        "virtualPath": "/Modules/EquipmentManagement",
         "user": 1
     }
 ]

@@ -12,156 +12,99 @@
  */
 declare(strict_types=1);
 
-use Modules\FleetManagement\Controller\BackendController;
-use Modules\FleetManagement\Models\PermissionCategory;
+use Modules\EquipmentManagement\Controller\BackendController;
+use Modules\EquipmentManagement\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/fleet/vehicle/attribute/type/list.*$' => [
+    '^.*/equipment/equipment/attribute/type/list.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeTypeList',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeTypeList',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
-    '^.*/fleet/vehicle/attribute/type\?.*$' => [
+    '^.*/equipment/equipment/attribute/type\?.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementAttributeType',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeType',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
 
-    '^.*/fleet/vehicle/list.*$' => [
+    '^.*/equipment/equipment/list.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentList',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
-    '^.*/fleet/vehicle/create.*$' => [
+    '^.*/equipment/equipment/create.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
-    '^.*/fleet/vehicle/profile.*$' => [
+    '^.*/equipment/equipment/profile.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleProfile',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentProfile',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
 
-    '^.*/fleet/driver/attribute/type/list.*$' => [
+    '^.*/equipment/inspection/list.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeTypeList',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentList',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
-    '^.*/fleet/driver/attribute/type\?.*$' => [
+    '^.*/equipment/inspection/create.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverAttributeType',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-    ],
-
-    '^.*/fleet/driver/list.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverList',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-    ],
-    '^.*/fleet/driver/create.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
-    '^.*/fleet/driver/profile.*$' => [
+    '^.*/equipment/inspection/profile.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementDriverProfile',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentProfile',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-    ],
-
-    '^.*/fleet/inspection/list.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleList',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-    ],
-    '^.*/fleet/inspection/create.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleCreate',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::NAME,
-                'type'   => PermissionType::CREATE,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-    ],
-    '^.*/fleet/inspection/profile.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\BackendController:viewFleetManagementVehicleProfile',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],

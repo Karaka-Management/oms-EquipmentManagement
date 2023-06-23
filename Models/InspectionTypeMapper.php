@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models
+ * @package   Modules\EquipmentManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\EquipmentManagement\Models;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\Localization\BaseStringL11nType;
@@ -20,7 +20,7 @@ use phpOMS\Localization\BaseStringL11nType;
 /**
  * Item mapper class.
  *
- * @package Modules\FleetManagement\Models
+ * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -37,8 +37,8 @@ final class InspectionTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_inspection_type_id'   => ['name' => 'fleetmgmt_inspection_type_id',   'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_inspection_type_name' => ['name' => 'fleetmgmt_inspection_type_name', 'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
+        'equipmgmt_inspection_type_id'   => ['name' => 'equipmgmt_inspection_type_id',   'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_inspection_type_name' => ['name' => 'equipmgmt_inspection_type_name', 'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
     ];
 
     /**
@@ -50,8 +50,8 @@ final class InspectionTypeMapper extends DataMapperFactory
     public const HAS_MANY = [
         'l11n' => [
             'mapper'   => InspectionTypeL11nMapper::class,
-            'table'    => 'fleetmgmt_inspection_type_l11n',
-            'self'     => 'fleetmgmt_inspection_type_l11n_type',
+            'table'    => 'equipmgmt_inspection_type_l11n',
+            'self'     => 'equipmgmt_inspection_type_l11n_type',
             'column'   => 'content',
             'external' => null,
         ],
@@ -71,7 +71,7 @@ final class InspectionTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_inspection_type';
+    public const TABLE = 'equipmgmt_inspection_type';
 
     /**
      * Primary field name.
@@ -79,5 +79,5 @@ final class InspectionTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_inspection_type_id';
+    public const PRIMARYFIELD = 'equipmgmt_inspection_type_id';
 }

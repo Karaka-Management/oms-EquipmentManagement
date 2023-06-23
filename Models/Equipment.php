@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models\Driver
+ * @package   Modules\EquipmentManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,39 +12,41 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models\Driver;
+namespace Modules\EquipmentManagement\Models;
 
 use phpOMS\Localization\BaseStringL11nType;
 
 /**
- * Inspection class.
+ * Equipment class.
  *
- * @package Modules\FleetManagement\Models\Driver
+ * @package Modules\Attribute\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class DriverInspection implements \JsonSerializable
+class Equipment implements \JsonSerializable
 {
     public int $id = 0;
 
-    public string $description = '';
+    public string $name = '';
+
+    public int $status = EquipmentStatus::ACTIVE;
 
     public BaseStringL11nType $type;
 
-    public int $status = DriverInspectionStatus::TODO;
+    public string $info = '';
 
-    // Automatically get's filled from the previous inspection if available
-    // Alternatively define default interval from inspection type?
-    public ?\DateTime $next = null;
+    public array $drivers = [];
 
-    /**
-     * Inspectio interval in months
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    public int $interval = 0;
+    public array $inspections = [];
+
+    public array $milage = [];
+
+    public int $unit = 0;
+
+    public ?int $responsible = null;
+
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Constructor.
@@ -53,7 +55,8 @@ class DriverInspection implements \JsonSerializable
      */
     public function __construct()
     {
-        $this->type = new BaseStringL11nType();
+        $this->createdAt = new \DateTimeImmutable('now');
+        $this->type      = new BaseStringL11nType();
     }
 
     /**
@@ -75,4 +78,6 @@ class DriverInspection implements \JsonSerializable
     }
 
     use \Modules\Media\Models\MediaListTrait;
+    use \Modules\Editor\Models\EditorDocListTrait;
+    use \Modules\Attribute\Models\AttributeHolderTrait;
 }

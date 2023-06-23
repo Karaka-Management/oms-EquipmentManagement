@@ -12,104 +12,62 @@
  */
 declare(strict_types=1);
 
-use Modules\FleetManagement\Controller\Controller;
-use Modules\FleetManagement\Models\PermissionCategory;
+use Modules\EquipmentManagement\Controller\Controller;
+use Modules\EquipmentManagement\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/fleet/vehicle/find.*$' => [
+    '^.*/equipment/equipment/find.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleController:apiVehicleFind',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiEquipmentFind',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
 
-    '^.*/fleet/vehicle/attribute.*$' => [
+    '^.*/equipment/equipment/attribute.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiVehicleAttributeCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiEquipmentAttributeCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiVehicleAttributeUpdate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiEquipmentAttributeUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],
 
-    '^.*/fleet/driver/attribute.*$' => [
+    '^.*/equipment/equipment/note.*$' => [
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiDriverAttributeCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::DRIVER,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
         [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiDriverAttributeUpdate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiNoteEdit',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::DRIVER,
-            ],
-        ],
-    ],
-
-    '^.*/fleet/vehicle/note.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiNoteCreate',
-            'verb'       => RouteVerb::PUT,
-            'permission' => [
-                'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiVehicleAttributeController:apiNoteEdit',
-            'verb'       => RouteVerb::SET,
-            'permission' => [
-                'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::VEHICLE,
-            ],
-        ],
-    ],
-
-    '^.*/fleet/driver/note.*$' => [
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiNoteCreate',
-            'verb'       => RouteVerb::PUT,
-            'permission' => [
-                'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::DRIVER,
-            ],
-        ],
-        [
-            'dest'       => '\Modules\FleetManagement\Controller\ApiDriverAttributeController:apiNoteEdit',
-            'verb'       => RouteVerb::SET,
-            'permission' => [
-                'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::DRIVER,
+                'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
     ],

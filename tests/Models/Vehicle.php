@@ -12,9 +12,9 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\EquipmentManagement\Models;
 
-class Vehicle
+class Equipment
 {
     public int $id = 0;
 }

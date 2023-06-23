@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement
+ * @package   Modules\EquipmentManagement
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Controller;
+namespace Modules\EquipmentManagement\Controller;
 
 use phpOMS\Module\ModuleAbstract;
 
 /**
- * FleetManagement class.
+ * EquipmentManagement class.
  *
- * @package Modules\FleetManagement
+ * @package Modules\EquipmentManagement
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -48,7 +48,7 @@ class Controller extends ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    public const NAME = 'FleetManagement';
+    public const NAME = 'EquipmentManagement';
 
     /**
      * Module id.
@@ -56,7 +56,7 @@ class Controller extends ModuleAbstract
      * @var int
      * @since 1.0.0
      */
-    public const ID = 1003500000;
+    public const ID = 1008400000;
 
     /**
      * Providing.

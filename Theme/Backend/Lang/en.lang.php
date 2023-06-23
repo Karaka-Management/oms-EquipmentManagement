@@ -12,9 +12,9 @@
  */
 declare(strict_types=1);
 
-return ['FleetManagement' => [
-    'Vehicle'       => 'Vehicle',
-    'Vehicles'      => 'Vehicles',
+return ['EquipmentManagement' => [
+    'Equipment'       => 'Equipment',
+    'Equipments'      => 'Equipments',
     'Status'        => 'Status',
     'Name'          => 'Name',
     'Type'          => 'Type',

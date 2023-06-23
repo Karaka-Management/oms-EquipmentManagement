@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement
+ * @package   Modules\EquipmentManagement
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,14 +12,16 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Controller;
+namespace Modules\EquipmentManagement\Controller;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\FleetManagement\Models\Driver\DriverInspectionTypeL11nMapper;
-use Modules\FleetManagement\Models\Driver\DriverInspectionTypeMapper;
-use Modules\FleetManagement\Models\Driver\Driver;
-use Modules\FleetManagement\Models\Driver\DriverMapper;
-use Modules\FleetManagement\Models\Driver\DriverStatus;
+use Modules\EquipmentManagement\Models\InspectionTypeL11nMapper;
+use Modules\EquipmentManagement\Models\InspectionTypeMapper;
+use Modules\EquipmentManagement\Models\Equipment;
+use Modules\EquipmentManagement\Models\EquipmentMapper;
+use Modules\EquipmentManagement\Models\EquipmentStatus;
+use Modules\EquipmentManagement\Models\EquipmentTypeL11nMapper;
+use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
@@ -29,6 +31,7 @@ use Modules\Media\Models\ReferenceMapper;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\BaseStringL11nType;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Localization\NullBaseStringL11nType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -36,17 +39,17 @@ use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 
 /**
- * FleetManagement class.
+ * EquipmentManagement class.
  *
- * @package Modules\FleetManagement
+ * @package Modules\EquipmentManagement
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class ApiDriverController extends Controller
+final class ApiEquipmentController extends Controller
 {
     /**
-     * Api method to create a driver
+     * Api method to create a equipment
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -58,23 +61,167 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverCreate($request))) {
+        if (!empty($val = $this->validateEquipmentTypeCreate($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
 
-        /** @var Driver $driver */
-        $driver = $this->createDriverFromRequest($request);
-        $this->createModel($request->header->account, $driver, DriverMapper::class, 'driver', $request->getOrigin());
+        /** @var BaseStringL11nType $equipment */
+        $equipment = $this->createEquipmentTypeFromRequest($request);
+        $this->createModel($request->header->account, $equipment, EquipmentTypeMapper::class, 'equipment_type', $request->getOrigin());
+
+        $this->fillJsonResponse(
+            $request,
+            $response,
+            NotificationLevel::OK,
+            '',
+            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
+            $equipment
+        );
+    }
+
+    /**
+     * Method to create equipment from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11nType Returns the created equipment from the request
+     *
+     * @since 1.0.0
+     */
+    public function createEquipmentTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
+    {
+        $type        = new BaseStringL11nType();
+        $type->title = $request->getDataString('name') ?? '';
+        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+
+        return $type;
+    }
+
+    /**
+     * Validate equipment create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateEquipmentTypeCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['name'] = !$request->hasData('name'))
+            || ($val['title'] = !$request->hasData('title'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create equipment attribute l11n
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiEquipmentTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateEquipmentTypeL11nCreate($request))) {
+            $response->data['equipment_type_l11n_create'] = new FormValidation($val);
+            $response->header->status                   = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $typeL11n = $this->createEquipmentTypeL11nFromRequest($request);
+        $this->createModel($request->header->account, $typeL11n, EquipmentTypeL11nMapper::class, 'equipment_type_l11n', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
+    }
+
+    /**
+     * Method to create equipment attribute l11n from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return BaseStringL11n
+     *
+     * @since 1.0.0
+     */
+    private function createEquipmentTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    {
+        $typeL11n      = new BaseStringL11n();
+        $typeL11n->ref = $request->getDataInt('type') ?? 0;
+        $typeL11n->setLanguage(
+            $request->getDataString('language') ?? $request->header->l11n->language
+        );
+        $typeL11n->content = $request->getDataString('title') ?? '';
+
+        return $typeL11n;
+    }
+
+    /**
+     * Validate equipment attribute l11n create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateEquipmentTypeL11nCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['type'] = !$request->hasData('type'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to create a equipment
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiEquipmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateEquipmentCreate($request))) {
+            $response->data[$request->uri->__toString()] = new FormValidation($val);
+            $response->header->status                    = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        /** @var Equipment $equipment */
+        $equipment = $this->createEquipmentFromRequest($request);
+        $this->createModel($request->header->account, $equipment, EquipmentMapper::class, 'equipment', $request->getOrigin());
 
         if (!empty($request->files)
             || !empty($request->getDataJson('media'))
         ) {
-            $this->createDriverMedia($driver, $request);
+            $this->createEquipmentMedia($equipment, $request);
         }
 
         $this->fillJsonResponse(
@@ -83,41 +230,44 @@ final class ApiDriverController extends Controller
             NotificationLevel::OK,
             '',
             $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $driver
+            $equipment
         );
     }
 
     /**
-     * Method to create driver from request.
+     * Method to create equipment from request.
      *
      * @param RequestAbstract $request Request
      *
-     * @return Driver Returns the created driver from the request
+     * @return Equipment Returns the created equipment from the request
      *
      * @since 1.0.0
      */
-    public function createDriverFromRequest(RequestAbstract $request) : Driver
+    public function createEquipmentFromRequest(RequestAbstract $request) : Equipment
     {
-        $driver          = new Driver();
-        $driver->account = new NullAccount($request->getDataInt('account') ?? 1);
-        $driver->status  = (int) ($request->getDataInt('status') ?? DriverStatus::INACTIVE);
+        $equipment           = new Equipment();
+        $equipment->name     = $request->getDataString('name') ?? '';
+        $equipment->info     = $request->getDataString('info') ?? '';
+        $equipment->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
+        $equipment->status   = (int) ($request->getDataInt('status') ?? EquipmentStatus::INACTIVE);
+        $equipment->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
-        return $driver;
+        return $equipment;
     }
 
     /**
-     * Create media files for driver
+     * Create media files for equipment
      *
-     * @param Driver          $driver  Driver
+     * @param Equipment         $equipment Equipment
      * @param RequestAbstract $request Request incl. media do upload
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function createDriverMedia(Driver $driver, RequestAbstract $request) : void
+    private function createEquipmentMedia(Equipment $equipment, RequestAbstract $request) : void
     {
-        $path = $this->createDriverDir($driver);
+        $path = $this->createEquipmentDir($equipment);
 
         if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
@@ -134,9 +284,9 @@ final class ApiDriverController extends Controller
             foreach ($uploaded as $media) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $driver->id,
+                    $equipment->id,
                     $media->id,
-                    DriverMapper::class,
+                    EquipmentMapper::class,
                     'files',
                     '',
                     $request->getOrigin()
@@ -176,9 +326,9 @@ final class ApiDriverController extends Controller
 
                 $this->createModelRelation(
                     $request->header->account,
-                    $driver->id,
+                    $equipment->id,
                     $media->id,
-                    DriverMapper::class,
+                    EquipmentMapper::class,
                     'files',
                     '',
                     $request->getOrigin()
@@ -219,7 +369,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Validate driver create request
+     * Validate equipment create request
      *
      * @param RequestAbstract $request Request
      *
@@ -227,10 +377,11 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateDriverCreate(RequestAbstract $request) : array
+    private function validateEquipmentCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['account'] = !$request->hasData('account'))
+        if (($val['name'] = !$request->hasData('name'))
+            || ($val['type'] = !$request->hasData('type'))
         ) {
             return $val;
         }
@@ -251,18 +402,18 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiMediaAddToDriver(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiMediaAddToEquipment(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateMediaAddToDriver($request))) {
+        if (!empty($val = $this->validateMediaAddToEquipment($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
 
-        /** @var \Modules\FleetManagement\Models\Driver\Driver $driver */
-        $driver = DriverMapper::get()->where('id', (int) $request->getData('driver'))->execute();
-        $path   = $this->createDriverDir($driver);
+        /** @var \Modules\EquipmentManagement\Models\Equipment $equipment */
+        $equipment = EquipmentMapper::get()->where('id', (int) $request->getData('equipment'))->execute();
+        $path    = $this->createEquipmentDir($equipment);
 
         $uploaded = [];
         if (!empty($uploadedFiles = $request->files)) {
@@ -282,9 +433,9 @@ final class ApiDriverController extends Controller
             foreach ($uploaded as $media) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $driver->id,
+                    $equipment->id,
                     $media->id,
-                    DriverMapper::class,
+                    EquipmentMapper::class,
                     'files',
                     '',
                     $request->getOrigin()
@@ -331,9 +482,9 @@ final class ApiDriverController extends Controller
             foreach ($mediaFiles as $media) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $driver->id,
+                    $equipment->id,
                     (int) $media,
-                    DriverMapper::class,
+                    EquipmentMapper::class,
                     'files',
                     '',
                     $request->getOrigin()
@@ -341,7 +492,7 @@ final class ApiDriverController extends Controller
             }
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Media', 'Media added to driver.', [
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Media', 'Media added to equipment.', [
             'upload' => $uploaded,
             'media'  => $mediaFiles,
         ]);
@@ -350,17 +501,17 @@ final class ApiDriverController extends Controller
     /**
      * Create media directory path
      *
-     * @param Driver $driver Driver
+     * @param Equipment $equipment Equipment
      *
      * @return string
      *
      * @since 1.0.0
      */
-    private function createDriverDir(Driver $driver) : string
+    private function createEquipmentDir(Equipment $equipment) : string
     {
-        return '/Modules/FleetManagement/Driver/'
+        return '/Modules/EquipmentManagement/Equipment/'
             . $this->app->unitId . '/'
-            . $driver->id;
+            . $equipment->id;
     }
 
     /**
@@ -372,11 +523,11 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateMediaAddToDriver(RequestAbstract $request) : array
+    private function validateMediaAddToEquipment(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['media'] = (!$request->hasData('media') && empty($request->files)))
-            || ($val['driver'] = !$request->hasData('driver'))
+            || ($val['equipment'] = !$request->hasData('equipment'))
         ) {
             return $val;
         }
@@ -385,7 +536,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Api method to create a driver
+     * Api method to create a equipment
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -397,18 +548,18 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverInspectionTypeCreate($request))) {
+        if (!empty($val = $this->validateInspectionTypeCreate($request))) {
             $response->data[$request->uri->__toString()] = new FormValidation($val);
             $response->header->status                    = RequestStatusCode::R_400;
 
             return;
         }
 
-        /** @var BaseStringL11nType $driver */
-        $driver = $this->createDriverInspectionTypeFromRequest($request);
-        $this->createModel($request->header->account, $driver, DriverInspectionTypeMapper::class, 'driver_inspection_type', $request->getOrigin());
+        /** @var BaseStringL11nType $inspection */
+        $inspection = $this->createInspectionTypeFromRequest($request);
+        $this->createModel($request->header->account, $inspection, InspectionTypeMapper::class, 'inspection_type', $request->getOrigin());
 
         $this->fillJsonResponse(
             $request,
@@ -416,20 +567,20 @@ final class ApiDriverController extends Controller
             NotificationLevel::OK,
             '',
             $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $driver
+            $inspection
         );
     }
 
     /**
-     * Method to create driver from request.
+     * Method to create equipment from request.
      *
      * @param RequestAbstract $request Request
      *
-     * @return BaseStringL11nType Returns the created driver from the request
+     * @return BaseStringL11nType Returns the created equipment from the request
      *
      * @since 1.0.0
      */
-    public function createDriverInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
+    public function createInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
         $type        = new BaseStringL11nType();
         $type->title = $request->getDataString('name') ?? '';
@@ -439,7 +590,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Validate driver create request
+     * Validate equipment create request
      *
      * @param RequestAbstract $request Request
      *
@@ -447,7 +598,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateDriverInspectionTypeCreate(RequestAbstract $request) : array
+    private function validateInspectionTypeCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['name'] = !$request->hasData('name'))
@@ -460,7 +611,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Api method to create driver attribute l11n
+     * Api method to create equipment attribute l11n
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -472,22 +623,22 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiDriverInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        if (!empty($val = $this->validateDriverInspectionTypeL11nCreate($request))) {
-            $response->data['driver_inspection_type_l11n_create'] = new FormValidation($val);
+        if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
+            $response->data['inspection_type_l11n_create'] = new FormValidation($val);
             $response->header->status                      = RequestStatusCode::R_400;
 
             return;
         }
 
-        $typeL11n = $this->createDriverInspectionTypeL11nFromRequest($request);
-        $this->createModel($request->header->account, $typeL11n, DriverInspectionTypeL11nMapper::class, 'driver_inspection_type_l11n', $request->getOrigin());
+        $typeL11n = $this->createInspectionTypeL11nFromRequest($request);
+        $this->createModel($request->header->account, $typeL11n, InspectionTypeL11nMapper::class, 'inspection_type_l11n', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
     }
 
     /**
-     * Method to create driver attribute l11n from request.
+     * Method to create equipment attribute l11n from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -495,7 +646,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    private function createDriverInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
+    private function createInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
         $typeL11n      = new BaseStringL11n();
         $typeL11n->ref = $request->getDataInt('type') ?? 0;
@@ -508,7 +659,7 @@ final class ApiDriverController extends Controller
     }
 
     /**
-     * Validate driver attribute l11n create request
+     * Validate equipment attribute l11n create request
      *
      * @param RequestAbstract $request Request
      *
@@ -516,7 +667,7 @@ final class ApiDriverController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateDriverInspectionTypeL11nCreate(RequestAbstract $request) : array
+    private function validateInspectionTypeL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['title'] = !$request->hasData('title'))
@@ -544,13 +695,13 @@ final class ApiDriverController extends Controller
     public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
-            $response->data['driver_note_create'] = new FormValidation($val);
-            $response->header->status             = RequestStatusCode::R_400;
+            $response->data['equipment_note_create'] = new FormValidation($val);
+            $response->header->status              = RequestStatusCode::R_400;
 
             return;
         }
 
-        $request->setData('virtualpath', '/Modules/FleetManagement/Driver/' . $request->getData('id'), true);
+        $request->setData('virtualpath', '/Modules/EquipmentManagement/Equipment/' . $request->getData('id'), true);
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorCreate($request, $response, $data);
 
         if ($response->header->status !== RequestStatusCode::R_200) {
@@ -563,7 +714,7 @@ final class ApiDriverController extends Controller
         }
 
         $model = $responseData['response'];
-        $this->createModelRelation($request->header->account, (int) $request->getData('id'), $model->id, DriverMapper::class, 'notes', '', $request->getOrigin());
+        $this->createModelRelation($request->header->account, (int) $request->getData('id'), $model->id, EquipmentMapper::class, 'notes', '', $request->getOrigin());
     }
 
     /**

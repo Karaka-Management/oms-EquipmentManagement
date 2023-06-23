@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Admin
+ * @package   Modules\EquipmentManagement\Admin
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Admin;
+namespace Modules\EquipmentManagement\Admin;
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Config\SettingsInterface;
@@ -25,7 +25,7 @@ use phpOMS\Uri\HttpUri;
 /**
  * Installer class.
  *
- * @package Modules\FleetManagement\Admin
+ * @package Modules\EquipmentManagement\Admin
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -58,25 +58,15 @@ final class Installer extends InstallerAbstract
         $attrTypes  = self::createAttributeTypes($app, $attributes);
         $attrValues = self::createAttributeValues($app, $attrTypes, $attributes);
 
-        /* Fuel types */
-        $fileContent = \file_get_contents(__DIR__ . '/Install/fueltype.json');
-        if ($fileContent === false) {
-            return;
-        }
-
-        /** @var array $types */
-        $types     = \json_decode($fileContent, true);
-        $fuelTypes = self::createFuelTypes($app, $types);
-
-        /* Vehicle types */
-        $fileContent = \file_get_contents(__DIR__ . '/Install/vehicletype.json');
+        /* Equipment types */
+        $fileContent = \file_get_contents(__DIR__ . '/Install/equipmenttype.json');
         if ($fileContent === false) {
             return;
         }
 
         /** @var array $types */
         $types        = \json_decode($fileContent, true);
-        $vehicleTypes = self::createVehicleTypes($app, $types);
+        $equipmentTypes = self::createEquipmentTypes($app, $types);
 
         /* Inspection types */
         $fileContent = \file_get_contents(__DIR__ . '/Install/inspectiontype.json');
@@ -87,20 +77,10 @@ final class Installer extends InstallerAbstract
         /** @var array $types */
         $types           = \json_decode($fileContent, true);
         $inspectionTypes = self::createInspectionTypes($app, $types);
-
-        /* Inspection types */
-        $fileContent = \file_get_contents(__DIR__ . '/Install/driverinspectiontype.json');
-        if ($fileContent === false) {
-            return;
-        }
-
-        /** @var array $types */
-        $types           = \json_decode($fileContent, true);
-        $inspectionTypes = self::createDriverInspectionTypes($app, $types);
     }
 
     /**
-     * Install fuel type
+     * Install equipment type
      *
      * @param ApplicationAbstract $app   Application
      * @param array               $types Attribute definition
@@ -109,13 +89,13 @@ final class Installer extends InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function createFuelTypes(ApplicationAbstract $app, array $types) : array
+    private static function createEquipmentTypes(ApplicationAbstract $app, array $types) : array
     {
-        /** @var array<string, array> $fuelTypes */
-        $fuelTypes = [];
+        /** @var array<string, array> $equipmentTypes */
+        $equipmentTypes = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
+        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentController $module */
+        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipment');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -127,14 +107,14 @@ final class Installer extends InstallerAbstract
             $request->setData('title', \reset($type['l11n']));
             $request->setData('language', \array_keys($type['l11n'])[0] ?? 'en');
 
-            $module->apiFuelTypeCreate($request, $response);
+            $module->apiEquipmentTypeCreate($request, $response);
 
             $responseData = $response->get('');
             if (!\is_array($responseData)) {
                 continue;
             }
 
-            $fuelTypes[$type['name']] = !\is_array($responseData['response'])
+            $equipmentTypes[$type['name']] = !\is_array($responseData['response'])
                 ? $responseData['response']->toArray()
                 : $responseData['response'];
 
@@ -151,74 +131,13 @@ final class Installer extends InstallerAbstract
                 $request->header->account = 1;
                 $request->setData('title', $l11n);
                 $request->setData('language', $language);
-                $request->setData('type', $fuelTypes[$type['name']]['id']);
+                $request->setData('type', $equipmentTypes[$type['name']]['id']);
 
-                $module->apiFuelTypeL11nCreate($request, $response);
+                $module->apiEquipmentTypeL11nCreate($request, $response);
             }
         }
 
-        return $fuelTypes;
-    }
-
-    /**
-     * Install vehicle type
-     *
-     * @param ApplicationAbstract $app   Application
-     * @param array               $types Attribute definition
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private static function createVehicleTypes(ApplicationAbstract $app, array $types) : array
-    {
-        /** @var array<string, array> $vehicleTypes */
-        $vehicleTypes = [];
-
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
-
-        /** @var array $type */
-        foreach ($types as $type) {
-            $response = new HttpResponse();
-            $request  = new HttpRequest(new HttpUri(''));
-
-            $request->header->account = 1;
-            $request->setData('name', $type['name'] ?? '');
-            $request->setData('title', \reset($type['l11n']));
-            $request->setData('language', \array_keys($type['l11n'])[0] ?? 'en');
-
-            $module->apiVehicleTypeCreate($request, $response);
-
-            $responseData = $response->get('');
-            if (!\is_array($responseData)) {
-                continue;
-            }
-
-            $vehicleTypes[$type['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
-
-            $isFirst = true;
-            foreach ($type['l11n'] as $language => $l11n) {
-                if ($isFirst) {
-                    $isFirst = false;
-                    continue;
-                }
-
-                $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
-
-                $request->header->account = 1;
-                $request->setData('title', $l11n);
-                $request->setData('language', $language);
-                $request->setData('type', $vehicleTypes[$type['name']]['id']);
-
-                $module->apiVehicleTypeL11nCreate($request, $response);
-            }
-        }
-
-        return $vehicleTypes;
+        return $equipmentTypes;
     }
 
     /**
@@ -236,8 +155,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $inspectionTypes */
         $inspectionTypes = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicle');
+        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentController $module */
+        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipment');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -283,67 +202,6 @@ final class Installer extends InstallerAbstract
     }
 
     /**
-     * Install inspection type
-     *
-     * @param ApplicationAbstract $app   Application
-     * @param array               $types Attribute definition
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private static function createDriverInspectionTypes(ApplicationAbstract $app, array $types) : array
-    {
-        /** @var array<string, array> $inspectionTypes */
-        $inspectionTypes = [];
-
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiDriver');
-
-        /** @var array $type */
-        foreach ($types as $type) {
-            $response = new HttpResponse();
-            $request  = new HttpRequest(new HttpUri(''));
-
-            $request->header->account = 1;
-            $request->setData('name', $type['name'] ?? '');
-            $request->setData('title', \reset($type['l11n']));
-            $request->setData('language', \array_keys($type['l11n'])[0] ?? 'en');
-
-            $module->apiDriverInspectionTypeCreate($request, $response);
-
-            $responseData = $response->get('');
-            if (!\is_array($responseData)) {
-                continue;
-            }
-
-            $inspectionTypes[$type['name']] = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
-
-            $isFirst = true;
-            foreach ($type['l11n'] as $language => $l11n) {
-                if ($isFirst) {
-                    $isFirst = false;
-                    continue;
-                }
-
-                $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
-
-                $request->header->account = 1;
-                $request->setData('title', $l11n);
-                $request->setData('language', $language);
-                $request->setData('type', $inspectionTypes[$type['name']]['id']);
-
-                $module->apiDriverInspectionTypeL11nCreate($request, $response);
-            }
-        }
-
-        return $inspectionTypes;
-    }
-
-    /**
      * Install default attribute types
      *
      * @param ApplicationAbstract $app        Application
@@ -358,8 +216,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $itemAttrType */
         $itemAttrType = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicleAttribute');
+        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController $module */
+        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipmentAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -375,7 +233,7 @@ final class Installer extends InstallerAbstract
             $request->setData('validation_pattern', $attribute['validation_pattern'] ?? '');
             $request->setData('datatype', (int) $attribute['value_type']);
 
-            $module->apiVehicleAttributeTypeCreate($request, $response);
+            $module->apiEquipmentAttributeTypeCreate($request, $response);
 
             $responseData = $response->get('');
             if (!\is_array($responseData)) {
@@ -401,7 +259,7 @@ final class Installer extends InstallerAbstract
                 $request->setData('language', $language);
                 $request->setData('type', $itemAttrType[$attribute['name']]['id']);
 
-                $module->apiVehicleAttributeTypeL11nCreate($request, $response);
+                $module->apiEquipmentAttributeTypeL11nCreate($request, $response);
             }
         }
 
@@ -424,8 +282,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $itemAttrValue */
         $itemAttrValue = [];
 
-        /** @var \Modules\FleetManagement\Controller\ApiVehicleAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('FleetManagement', 'ApiVehicleAttribute');
+        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController $module */
+        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipmentAttribute');
 
         foreach ($attributes as $attribute) {
             $itemAttrValue[$attribute['name']] = [];
@@ -446,7 +304,7 @@ final class Installer extends InstallerAbstract
                     $request->setData('language', \array_keys($value['l11n'])[0] ?? 'en');
                 }
 
-                $module->apiVehicleAttributeValueCreate($request, $response);
+                $module->apiEquipmentAttributeValueCreate($request, $response);
 
                 $responseData = $response->get('');
                 if (!\is_array($responseData)) {
@@ -474,7 +332,7 @@ final class Installer extends InstallerAbstract
                     $request->setData('language', $language);
                     $request->setData('value', $attrValue['id']);
 
-                    $module->apiVehicleAttributeValueL11nCreate($request, $response);
+                    $module->apiEquipmentAttributeValueL11nCreate($request, $response);
                 }
             }
         }

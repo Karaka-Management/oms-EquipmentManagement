@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Admin
+ * @package   Modules\EquipmentManagement\Admin
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Admin;
+namespace Modules\EquipmentManagement\Admin;
 
 use phpOMS\Module\UninstallerAbstract;
 
 /**
  * Uninstaller class.
  *
- * @package Modules\FleetManagement\Admin
+ * @package Modules\EquipmentManagement\Admin
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0

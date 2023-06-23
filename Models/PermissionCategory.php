@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models
+ * @package   Modules\EquipmentManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,37 +12,27 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\EquipmentManagement\Models;
 
 use phpOMS\Stdlib\Base\Enum;
 
 /**
  * Permision state enum.
  *
- * @package Modules\FleetManagement\Models
+ * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
 abstract class PermissionCategory extends Enum
 {
-    public const VEHICLE = 1;
+    public const EQUIPMENT = 1;
 
-    public const FUEL_TYPE = 2;
+    public const EQUIPMENT_TYPE = 3;
 
-    public const VEHICLE_TYPE = 3;
+    public const EQUIPMENT_INSPECTION_TYPE = 4;
 
-    public const VEHICLE_INSPECTION_TYPE = 4;
+    public const EQUIPMENT_INSPECTION = 5;
 
-    public const VEHICLE_INSPECTION = 5;
-
-    public const VEHICLE_ATTRIBUTE_TYPE = 6;
-
-    public const DRIVER = 7;
-
-    public const DRIVER_INSPECTION_TYPE = 8;
-
-    public const DRIVER_INSPECTION = 9;
-
-    public const DRIVER_ATTRIBUTE_TYPE = 10;
+    public const EQUIPMENT_ATTRIBUTE_TYPE = 6;
 }

@@ -1,0 +1,30 @@
+[
+    {
+        "name": "scale",
+        "l11n": {
+            "en": "Scale",
+            "de": "Waage"
+        }
+    },
+    {
+        "name": "ladder",
+        "l11n": {
+            "en": "Ladder",
+            "de": "Leiter"
+        }
+    },
+    {
+        "name": "drill",
+        "l11n": {
+            "en": "Drill",
+            "de": "Bohrer"
+        }
+    },
+    {
+        "name": "saw",
+        "l11n": {
+            "en": "Saw",
+            "de": "Säge"
+        }
+    }
+]

@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\tests\Controller;
+namespace Modules\EquipmentManagement\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
@@ -30,7 +30,7 @@ use phpOMS\Router\WebRouter;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox Modules\FleetManagement\tests\Controller\ApiControllerTest: FleetManagement api controller
+ * @testdox Modules\EquipmentManagement\tests\Controller\ApiControllerTest: EquipmentManagement api controller
  *
  * @internal
  */
@@ -39,7 +39,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     protected ApplicationAbstract $app;
 
     /**
-     * @var \Modules\FleetManagement\Controller\ApiController
+     * @var \Modules\EquipmentManagement\Controller\ApiController
      */
     protected ModuleAbstract $module;
 
@@ -83,7 +83,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->app->accountManager->add($account);
         $this->app->router = new WebRouter();
 
-        $this->module = $this->app->moduleManager->get('FleetManagement');
+        $this->module = $this->app->moduleManager->get('EquipmentManagement');
 
         TestUtils::setMember($this->module, 'app', $this->app);
     }

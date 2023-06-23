@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\FleetManagement\Models
+ * @package   Modules\EquipmentManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\Models;
+namespace Modules\EquipmentManagement\Models;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\Localization\BaseStringL11nType;
@@ -20,7 +20,7 @@ use phpOMS\Localization\BaseStringL11nType;
 /**
  * Item mapper class.
  *
- * @package Modules\FleetManagement\Models
+ * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -28,7 +28,7 @@ use phpOMS\Localization\BaseStringL11nType;
  * @template T of BaseStringL11nType
  * @extends DataMapperFactory<T>
  */
-final class VehicleTypeMapper extends DataMapperFactory
+final class EquipmentTypeMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -37,8 +37,8 @@ final class VehicleTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'fleetmgmt_vehicle_type_id'         => ['name' => 'fleetmgmt_vehicle_type_id',       'type' => 'int',    'internal' => 'id'],
-        'fleetmgmt_vehicle_type_name'       => ['name' => 'fleetmgmt_vehicle_type_name',     'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
+        'equipmgmt_equipment_type_id'         => ['name' => 'equipmgmt_equipment_type_id',       'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_equipment_type_name'       => ['name' => 'equipmgmt_equipment_type_name',     'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
 
     ];
 
@@ -50,9 +50,9 @@ final class VehicleTypeMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'l11n' => [
-            'mapper'   => VehicleTypeL11nMapper::class,
-            'table'    => 'fleetmgmt_vehicle_type_l11n',
-            'self'     => 'fleetmgmt_vehicle_type_l11n_type',
+            'mapper'   => EquipmentTypeL11nMapper::class,
+            'table'    => 'equipmgmt_equipment_type_l11n',
+            'self'     => 'equipmgmt_equipment_type_l11n_type',
             'column'   => 'content',
             'external' => null,
         ],
@@ -72,7 +72,7 @@ final class VehicleTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const TABLE = 'fleetmgmt_vehicle_type';
+    public const TABLE = 'equipmgmt_equipment_type';
 
     /**
      * Primary field name.
@@ -80,5 +80,5 @@ final class VehicleTypeMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD = 'fleetmgmt_vehicle_type_id';
+    public const PRIMARYFIELD = 'equipmgmt_equipment_type_id';
 }

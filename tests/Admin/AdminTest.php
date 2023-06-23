@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace Modules\FleetManagement\tests\Admin;
+namespace Modules\EquipmentManagement\tests\Admin;
 
 /**
  * @internal
  */
 final class AdminTest extends \PHPUnit\Framework\TestCase
 {
-    protected const NAME = 'FleetManagement';
+    protected const NAME = 'EquipmentManagement';
 
     protected const URI_LOAD = '';
 
