@@ -43,7 +43,6 @@ echo $this->data['nav']->render();
             <li><label for="c-tab-3"><?= $this->getHtml('Files'); ?></label>
             <li><label for="c-tab-4"><?= $this->getHtml('Notes'); ?></label>
             <li><label for="c-tab-5"><?= $this->getHtml('Inspections'); ?></label>
-            <li><label for="c-tab-7"><?= $this->getHtml('Milage'); ?></label>
             <li><label for="c-tab-8"><?= $this->getHtml('Costs'); ?></label>
         </ul>
     </div>
@@ -66,8 +65,8 @@ echo $this->data['nav']->render();
                             </div>
 
                             <div class="form-group">
-                                <label for="iEquipmentVin"><?= $this->getHtml('Vin'); ?></label>
-                                <input type="text" id="iEquipmentVin" name="vin" value="<?= $this->printHtml($equipment->getAttribute('vin')->value->getValue()); ?>">
+                                <label for="iEquipmentEin"><?= $this->getHtml('EIN'); ?></label>
+                                <input type="text" id="iEquipmentEin" name="vin" value="<?= $this->printHtml($equipment->getAttribute('vin')->value->getValue()); ?>">
                             </div>
 
                             <div class="form-group">
@@ -202,151 +201,6 @@ echo $this->data['nav']->render();
                                     <td>
                                     <td>
                         </table>
-                    </section>
-                </div>
-            </div>
-        </div>
-
-        <input type="radio" id="c-tab-7" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-7' ? ' checked' : ''; ?>>
-        <div class="tab">
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <section class="portlet">
-                        <form id="milageForm" action="<?= UriFactory::build(''); ?>" method="post"
-                            data-ui-container="#milageTable tbody"
-                            data-add-form="milageForm"
-                            data-add-tpl="#milageTable tbody .oms-add-tpl-milage">
-                            <div class="portlet-head"><?= $this->getHtml('Milage'); ?></div>
-                            <div class="portlet-body">
-                                <div class="form-group">
-                                    <label for="iAttributeId"><?= $this->getHtml('ID', '0', '0'); ?></label>
-                                    <input type="text" id="iAttributeId" name="id" data-tpl-text="/id" data-tpl-value="/id" disabled>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iDriver"><?= $this->getHtml('Driver'); ?></label>
-                                    <div class="ipt-wrap">
-                                        <div class="ipt-first">
-                                            <span class="input">
-                                                <button type="button" formaction="">
-                                                    <i class="fa fa-book"></i>
-                                                </button>
-                                                <input type="text" id="iDriver" name="bill_client" value="">
-                                            </span>
-                                        </div>
-                                        <?php if (0 > 0) : ?>
-                                        <div class="ipt-second">
-                                             <a class="button" href="<?= UriFactory::build('{/app}/sales/client/profile?id=' . 0); ?>"><?= $this->getHtml('Driver'); ?></a>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iStartDate"><?= $this->getHtml('Start'); ?></label>
-                                    <input type="datetime-local" id="iStartDate" name="bill_invoice_date"
-                                        value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iEndDate"><?= $this->getHtml('End'); ?></label>
-                                    <input type="datetime-local" id="iEndDate" name="bill_invoice_date"
-                                        value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iFrom"><?= $this->getHtml('From'); ?></label>
-                                    <input type="text" id="iFrom" name="bill_invoice_date"
-                                        value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iTo"><?= $this->getHtml('To'); ?></label>
-                                    <input type="text" id="iTo" name="bill_invoice_date"
-                                        value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iMilage"><?= $this->getHtml('Milage'); ?></label>
-                                    <input type="number" id="iMilage" name="bill_invoice_date"
-                                        value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="iMilageDescription"><?= $this->getHtml('Description'); ?></label>
-                                    <pre class="textarea contenteditable" id="iMilageDescription" data-name="description" data-tpl-value="/value" contenteditable></pre>
-                                </div>
-                            </div>
-                            <div class="portlet-foot">
-                                <input id="bAttributeAdd" formmethod="put" type="submit" class="add-form" value="<?= $this->getHtml('Add', '0', '0'); ?>">
-                                <input id="bAttributeSave" formmethod="post" type="submit" class="save-form hidden button save" value="<?= $this->getHtml('Update', '0', '0'); ?>">
-                                <input type="submit" class="cancel-form hidden button close" value="<?= $this->getHtml('Cancel', '0', '0'); ?>">
-                            </div>
-                        </form>
-                    </section>
-                </div>
-
-                <div class="col-xs-12 col-md-6">
-                    <section class="portlet">
-                        <div class="portlet-head"><?= $this->getHtml('Milage'); ?><i class="lni lni-download download btn end-xs"></i></div>
-                        <div class="slider">
-                        <table id="milageTable" class="default"
-                            data-tag="form"
-                            data-ui-element="tr"
-                            data-add-tpl=".oms-add-tpl-milage"
-                            data-update-form="milageForm">
-                            <thead>
-                                <tr>
-                                    <td>
-                                    <td><?= $this->getHtml('ID', '0', '0'); ?>
-                                    <td class="wf-100"><?= $this->getHtml('Driver'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                    <td><?= $this->getHtml('Milage'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                    <td><?= $this->getHtml('Start'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                    <td><?= $this->getHtml('End'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                            <tbody>
-                                <template class="oms-add-tpl-milage">
-                                    <tr data-id="" draggable="false">
-                                        <td>
-                                            <i class="fa fa-cogs btn update-form"></i>
-                                            <input id="milageTable-remove-0" type="checkbox" class="hidden">
-                                            <label for="milageTable-remove-0" class="checked-visibility-alt"><i class="fa fa-times btn form-action"></i></label>
-                                            <span class="checked-visibility">
-                                                <label for="milageTable-remove-0" class="link default"><?= $this->getHtml('Cancel', '0', '0'); ?></label>
-                                                <label for="milageTable-remove-0" class="remove-form link cancel"><?= $this->getHtml('Delete', '0', '0'); ?></label>
-                                            </span>
-                                        <td data-tpl-text="/id" data-tpl-value="/id"></td>
-                                        <td data-tpl-text="/type" data-tpl-value="/type" data-value=""></td>
-                                        <td data-tpl-text="/value" data-tpl-value="/value"></td>
-                                        <td data-tpl-text="/unit" data-tpl-value="/unit"></td>
-                                        <td data-tpl-text="/unit" data-tpl-value="/unit"></td>
-                                    </tr>
-                                </template>
-                                <?php $c = 0;
-                                $milage = [];
-                                foreach ($milage as $key => $value) : ++$c; ?>
-                                    <tr data-id="<?= $value->id; ?>">
-                                        <td>
-                                            <i class="fa fa-cogs btn update-form"></i>
-                                            <?php if (!$value->type->isRequired) : ?>
-                                            <input id="milageTable-remove-<?= $value->id; ?>" type="checkbox" class="hidden">
-                                            <label for="milageTable-remove-<?= $value->id; ?>" class="checked-visibility-alt"><i class="fa fa-times btn form-action"></i></label>
-                                            <span class="checked-visibility">
-                                                <label for="milageTable-remove-<?= $value->id; ?>" class="link default"><?= $this->getHtml('Cancel', '0', '0'); ?></label>
-                                                <label for="milageTable-remove-<?= $value->id; ?>" class="remove-form link cancel"><?= $this->getHtml('Delete', '0', '0'); ?></label>
-                                            </span>
-                                            <?php endif; ?>
-                                        <td data-tpl-text="/id" data-tpl-value="/id"><?= $value->id; ?>
-                                        <td data-tpl-text="/type" data-tpl-value="/type" data-value="<?= $value->type->id; ?>"><?= $this->printHtml($value->type->getL11n()); ?>
-                                        <td data-tpl-text="/value" data-tpl-value="/value"><?= $value->value->getValue() instanceof \DateTime ? $value->value->getValue()->format('Y-m-d') : $this->printHtml((string) $value->value->getValue()); ?>
-                                        <td data-tpl-text="/unit" data-tpl-value="/unit" data-value="<?= $value->value->unit; ?>"><?= $this->printHtml($value->value->unit); ?>
-                                        <td data-tpl-text="/unit" data-tpl-value="/unit" data-value="<?= $value->value->unit; ?>"><?= $this->printHtml($value->value->unit); ?>
-                                <?php endforeach; ?>
-                                <?php if ($c === 0) : ?>
-                                <tr>
-                                    <td colspan="6" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
-                                <?php endif; ?>
-                        </table>
-                        </div>
                     </section>
                 </div>
             </div>
