@@ -15,28 +15,20 @@ declare(strict_types=1);
 namespace Modules\EquipmentManagement\Controller;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\EquipmentManagement\Models\InspectionTypeL11nMapper;
-use Modules\EquipmentManagement\Models\InspectionTypeMapper;
 use Modules\EquipmentManagement\Models\Equipment;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentStatus;
-use Modules\EquipmentManagement\Models\EquipmentTypeL11nMapper;
-use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
 use Modules\Media\Models\ReferenceMapper;
-use phpOMS\Localization\BaseStringL11n;
-use phpOMS\Localization\BaseStringL11nType;
-use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Localization\NullBaseStringL11nType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 
 /**
  * EquipmentManagement class.
@@ -61,155 +53,11 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiEquipmentTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateEquipmentTypeCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
-
-            return;
-        }
-
-        /** @var BaseStringL11nType $equipment */
-        $equipment = $this->createEquipmentTypeFromRequest($request);
-        $this->createModel($request->header->account, $equipment, EquipmentTypeMapper::class, 'equipment_type', $request->getOrigin());
-
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $equipment
-        );
-    }
-
-    /**
-     * Method to create equipment from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11nType Returns the created equipment from the request
-     *
-     * @since 1.0.0
-     */
-    public function createEquipmentTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
-    {
-        $type        = new BaseStringL11nType();
-        $type->title = $request->getDataString('name') ?? '';
-        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
-
-        return $type;
-    }
-
-    /**
-     * Validate equipment create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool> Returns the validation array of the request
-     *
-     * @since 1.0.0
-     */
-    private function validateEquipmentTypeCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['name'] = !$request->hasData('name'))
-            || ($val['title'] = !$request->hasData('title'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create equipment attribute l11n
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiEquipmentTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateEquipmentTypeL11nCreate($request))) {
-            $response->data['equipment_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                   = RequestStatusCode::R_400;
-
-            return;
-        }
-
-        $typeL11n = $this->createEquipmentTypeL11nFromRequest($request);
-        $this->createModel($request->header->account, $typeL11n, EquipmentTypeL11nMapper::class, 'equipment_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
-    }
-
-    /**
-     * Method to create equipment attribute l11n from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11n
-     *
-     * @since 1.0.0
-     */
-    private function createEquipmentTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
-    {
-        $typeL11n      = new BaseStringL11n();
-        $typeL11n->ref = $request->getDataInt('type') ?? 0;
-        $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $typeL11n->content = $request->getDataString('title') ?? '';
-
-        return $typeL11n;
-    }
-
-    /**
-     * Validate equipment attribute l11n create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateEquipmentTypeL11nCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['type'] = !$request->hasData('type'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create a equipment
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
     public function apiEquipmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateEquipmentCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -224,14 +72,7 @@ final class ApiEquipmentController extends Controller
             $this->createEquipmentMedia($equipment, $request);
         }
 
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $equipment
-        );
+        $this->createStandardCreateResponse($request, $response, $equipment);
     }
 
     /**
@@ -405,8 +246,8 @@ final class ApiEquipmentController extends Controller
     public function apiMediaAddToEquipment(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateMediaAddToEquipment($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidAddResponse($request, $response, $val);
 
             return;
         }
@@ -536,150 +377,6 @@ final class ApiEquipmentController extends Controller
     }
 
     /**
-     * Api method to create a equipment
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiInspectionTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateInspectionTypeCreate($request))) {
-            $response->data[$request->uri->__toString()] = new FormValidation($val);
-            $response->header->status                    = RequestStatusCode::R_400;
-
-            return;
-        }
-
-        /** @var BaseStringL11nType $inspection */
-        $inspection = $this->createInspectionTypeFromRequest($request);
-        $this->createModel($request->header->account, $inspection, InspectionTypeMapper::class, 'inspection_type', $request->getOrigin());
-
-        $this->fillJsonResponse(
-            $request,
-            $response,
-            NotificationLevel::OK,
-            '',
-            $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SucessfulCreate'),
-            $inspection
-        );
-    }
-
-    /**
-     * Method to create equipment from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11nType Returns the created equipment from the request
-     *
-     * @since 1.0.0
-     */
-    public function createInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
-    {
-        $type        = new BaseStringL11nType();
-        $type->title = $request->getDataString('name') ?? '';
-        $type->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
-
-        return $type;
-    }
-
-    /**
-     * Validate equipment create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool> Returns the validation array of the request
-     *
-     * @since 1.0.0
-     */
-    private function validateInspectionTypeCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['name'] = !$request->hasData('name'))
-            || ($val['title'] = !$request->hasData('title'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
-     * Api method to create equipment attribute l11n
-     *
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function apiInspectionTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
-    {
-        if (!empty($val = $this->validateInspectionTypeL11nCreate($request))) {
-            $response->data['inspection_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                      = RequestStatusCode::R_400;
-
-            return;
-        }
-
-        $typeL11n = $this->createInspectionTypeL11nFromRequest($request);
-        $this->createModel($request->header->account, $typeL11n, InspectionTypeL11nMapper::class, 'inspection_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $typeL11n);
-    }
-
-    /**
-     * Method to create equipment attribute l11n from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return BaseStringL11n
-     *
-     * @since 1.0.0
-     */
-    private function createInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
-    {
-        $typeL11n      = new BaseStringL11n();
-        $typeL11n->ref = $request->getDataInt('type') ?? 0;
-        $typeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $typeL11n->content = $request->getDataString('title') ?? '';
-
-        return $typeL11n;
-    }
-
-    /**
-     * Validate equipment attribute l11n create request
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<string, bool>
-     *
-     * @since 1.0.0
-     */
-    private function validateInspectionTypeL11nCreate(RequestAbstract $request) : array
-    {
-        $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['type'] = !$request->hasData('type'))
-        ) {
-            return $val;
-        }
-
-        return [];
-    }
-
-    /**
      * Api method to create notes
      *
      * @param RequestAbstract  $request  Request
@@ -695,8 +392,8 @@ final class ApiEquipmentController extends Controller
     public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
-            $response->data['equipment_note_create'] = new FormValidation($val);
-            $response->header->status              = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }

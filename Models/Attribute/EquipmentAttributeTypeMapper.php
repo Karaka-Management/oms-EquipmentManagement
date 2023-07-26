@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Modules\EquipmentManagement\Models
+ * @package   Modules\EquipmentManagement\Models\Attribute
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\EquipmentManagement\Models;
+namespace Modules\EquipmentManagement\Models\Attribute;
 
 use Modules\Attribute\Models\AttributeType;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 /**
  * Equipment mapper class.
  *
- * @package Modules\EquipmentManagement\Models
+ * @package Modules\EquipmentManagement\Models\Attribute
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0

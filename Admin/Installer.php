@@ -94,8 +94,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $equipmentTypes */
         $equipmentTypes = [];
 
-        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentController $module */
-        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipment');
+        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentTypeController $module */
+        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipmentType');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -155,8 +155,8 @@ final class Installer extends InstallerAbstract
         /** @var array<string, array> $inspectionTypes */
         $inspectionTypes = [];
 
-        /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentController $module */
-        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipment');
+        /** @var \Modules\EquipmentManagement\Controller\ApiInspectionTypeController $module */
+        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiInspectionType');
 
         /** @var array $type */
         foreach ($types as $type) {
