@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\EquipmentManagement\Models;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
-use phpOMS\Localization\BaseStringL11n;
 
 /**
  *  mapper class.
@@ -25,7 +24,7 @@ use phpOMS\Localization\BaseStringL11n;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @template T of BaseStringL11n
+ * @template T of Inspection
  * @extends DataMapperFactory<T>
  */
 final class InspectionMapper extends DataMapperFactory
@@ -38,10 +37,12 @@ final class InspectionMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'equipmgmt_equipment_inspection_id'          => ['name' => 'equipmgmt_equipment_inspection_id',    'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_equipment_inspection_vehicle' => ['name' => 'equipmgmt_equipment_inspection_vehicle', 'type' => 'int', 'internal' => 'reference'],
         'equipmgmt_equipment_inspection_description' => ['name' => 'equipmgmt_equipment_inspection_description', 'type' => 'string', 'internal' => 'description'],
         'equipmgmt_equipment_inspection_status'      => ['name' => 'equipmgmt_equipment_inspection_status',  'type' => 'int',    'internal' => 'status'],
         'equipmgmt_equipment_inspection_interval'    => ['name' => 'equipmgmt_equipment_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
         'equipmgmt_equipment_inspection_next'        => ['name' => 'equipmgmt_equipment_inspection_next',  'type' => 'DateTime', 'internal' => 'next'],
+        'equipmgmt_equipment_inspection_date'        => ['name' => 'equipmgmt_equipment_inspection_date',  'type' => 'DateTime', 'internal' => 'date'],
         'equipmgmt_equipment_inspection_type'        => ['name' => 'equipmgmt_equipment_inspection_type',  'type' => 'int', 'internal' => 'type'],
     ];
 
@@ -54,7 +55,7 @@ final class InspectionMapper extends DataMapperFactory
     public const OWNS_ONE = [
         'type' => [
             'mapper'   => InspectionTypeMapper::class,
-            'external' => 'equipmgmt_equipment_inspection_type',
+            'external' => 'equipmgmt_equipment_type',
         ],
     ];
 

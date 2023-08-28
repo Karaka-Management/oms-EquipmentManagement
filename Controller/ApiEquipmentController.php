@@ -40,6 +40,7 @@ use phpOMS\Message\ResponseAbstract;
  */
 final class ApiEquipmentController extends Controller
 {
+
     /**
      * Api method to create a equipment
      *
@@ -90,7 +91,7 @@ final class ApiEquipmentController extends Controller
         $equipment->name     = $request->getDataString('name') ?? '';
         $equipment->info     = $request->getDataString('info') ?? '';
         $equipment->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
-        $equipment->status   = (int) ($request->getDataInt('status') ?? EquipmentStatus::INACTIVE);
+        $equipment->status   = $request->getDataInt('status') ?? EquipmentStatus::INACTIVE;
         $equipment->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $equipment;
@@ -267,7 +268,7 @@ final class ApiEquipmentController extends Controller
                 virtualPath: $path,
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
-                readContent: (bool) ($request->getData('parse_content') ?? false)
+                readContent: $request->getDataBool('parse_content') ?? false
             );
 
             $collection = null;
@@ -435,7 +436,7 @@ final class ApiEquipmentController extends Controller
     }
 
     /**
-     * Api method to update note
+     * Api method to update Equipment
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -447,17 +448,151 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
+        if (!empty($val = $this->validateEquipmentUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
-        if ($response->header->status !== RequestStatusCode::R_200) {
             return;
         }
 
-        $responseData = $response->get($request->uri->__toString());
-        if (!\is_array($responseData)) {
+        /** @var \Modules\EquipmentManagement\Models\Equipment $old */
+        $old = EquipmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $new = $this->updateEquipmentFromRequest($request, clone $old);
+
+        $this->updateModel($request->header->account, $old, $new, EquipmentMapper::class, 'equipment', $request->getOrigin());
+        $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Method to update Equipment from request.
+     *
+     * @param RequestAbstract  $request Request
+     * @param Equipment     $new     Model to modify
+     *
+     * @return Equipment
+     *
+     * @todo: implement
+     *
+     * @since 1.0.0
+     */
+    public function updateEquipmentFromRequest(RequestAbstract $request, Equipment $new) : Equipment
+    {
+        $new->name     = $request->getDataString('name') ?? $new->name;
+        $new->info     = $request->getDataString('info') ?? $new->info;
+        $new->type     = $request->hasData('type') ? new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0)) : $new->type;
+        $new->status   = $request->getDataInt('status') ?? $new->status;
+        $new->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
+
+        return $new;
+    }
+
+    /**
+     * Validate Equipment update request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @todo: implement
+     *
+     * @since 1.0.0
+     */
+    private function validateEquipmentUpdate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = !$request->hasData('id'))) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to delete Equipment
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiEquipmentDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        if (!empty($val = $this->validateEquipmentDelete($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidDeleteResponse($request, $response, $val);
+
             return;
         }
+
+        /** @var \Modules\EquipmentManagement\Models\Equipment $equipment */
+        $equipment = EquipmentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $this->deleteModel($request->header->account, $equipment, EquipmentMapper::class, 'equipment', $request->getOrigin());
+        $this->createStandardDeleteResponse($request, $response, $equipment);
+    }
+
+    /**
+     * Validate Equipment delete request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @todo: implement
+     *
+     * @since 1.0.0
+     */
+    private function validateEquipmentDelete(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = !$request->hasData('id'))) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to update Note
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        // @todo: check permissions
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocUpdate($request, $response, $data);
+    }
+
+    /**
+     * Api method to delete Note
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+        // @todo: check permissions
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocDelete($request, $response, $data);
     }
 }

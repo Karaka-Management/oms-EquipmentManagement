@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/equipment/equipment/find.*$' => [
+    '^.*/equipment/find.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiEquipmentFind',
             'verb'       => RouteVerb::GET,
@@ -30,7 +30,7 @@ return [
         ],
     ],
 
-    '^.*/equipment/equipment/attribute.*$' => [
+    '^.*/equipment/attribute.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiEquipmentAttributeCreate',
             'verb'       => RouteVerb::PUT,
@@ -51,7 +51,7 @@ return [
         ],
     ],
 
-    '^.*/equipment/equipment/note.*$' => [
+    '^.*/equipment/note.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,

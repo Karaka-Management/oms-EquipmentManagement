@@ -16,8 +16,8 @@ namespace Modules\EquipmentManagement\Controller;
 
 use Modules\Admin\Models\LocalizationMapper;
 use Modules\Admin\Models\SettingsEnum;
-use Modules\EquipmentManagement\Models\EquipmentAttributeTypeL11nMapper;
-use Modules\EquipmentManagement\Models\EquipmentAttributeTypeMapper;
+use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeL11nMapper;
+use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeMapper;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use Modules\Media\Models\MediaMapper;

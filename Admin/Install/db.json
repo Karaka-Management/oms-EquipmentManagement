@@ -171,11 +171,17 @@
             },
             "equipmgmt_equipment_inspection_interval": {
                 "name": "equipmgmt_equipment_inspection_interval",
-                "type": "TINYINT(3)",
+                "type": "INT",
                 "null": false
             },
             "equipmgmt_equipment_inspection_next": {
                 "name": "equipmgmt_equipment_inspection_next",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            },
+            "equipmgmt_equipment_inspection_date": {
+                "name": "equipmgmt_equipment_inspection_date",
                 "type": "DATETIME",
                 "null": true,
                 "default": null
@@ -186,6 +192,13 @@
                 "null": false,
                 "foreignTable": "equipmgmt_inspection_type",
                 "foreignKey": "equipmgmt_inspection_type_id"
+            },
+            "equipmgmt_equipment_inspection_driver": {
+                "name": "equipmgmt_equipment_inspection_driver",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "equipmgmt_equipment",
+                "foreignKey": "equipmgmt_equipment_id"
             }
         }
     },

@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/equipment/equipment/attribute/type/list.*$' => [
+    '^.*/equipment/attribute/type/list.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeTypeList',
             'verb'       => RouteVerb::GET,
@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/equipment/attribute/type\?.*$' => [
+    '^.*/equipment/attribute/type\?.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeType',
             'verb'       => RouteVerb::GET,
@@ -41,7 +41,7 @@ return [
         ],
     ],
 
-    '^.*/equipment/equipment/list.*$' => [
+    '^.*/equipment/list.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentList',
             'verb'       => RouteVerb::GET,
@@ -52,7 +52,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/equipment/create.*$' => [
+    '^.*/equipment/create.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
@@ -63,7 +63,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/equipment/profile.*$' => [
+    '^.*/equipment/profile.*$' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentProfile',
             'verb'       => RouteVerb::GET,
