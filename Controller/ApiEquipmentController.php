@@ -40,7 +40,6 @@ use phpOMS\Message\ResponseAbstract;
  */
 final class ApiEquipmentController extends Controller
 {
-
     /**
      * Api method to create a equipment
      *
@@ -100,8 +99,8 @@ final class ApiEquipmentController extends Controller
     /**
      * Create media files for equipment
      *
-     * @param Equipment         $equipment Equipment
-     * @param RequestAbstract $request Request incl. media do upload
+     * @param Equipment       $equipment Equipment
+     * @param RequestAbstract $request   Request incl. media do upload
      *
      * @return void
      *
@@ -255,7 +254,7 @@ final class ApiEquipmentController extends Controller
 
         /** @var \Modules\EquipmentManagement\Models\Equipment $equipment */
         $equipment = EquipmentMapper::get()->where('id', (int) $request->getData('equipment'))->execute();
-        $path    = $this->createEquipmentDir($equipment);
+        $path      = $this->createEquipmentDir($equipment);
 
         $uploaded = [];
         if (!empty($uploadedFiles = $request->files)) {
@@ -468,8 +467,8 @@ final class ApiEquipmentController extends Controller
     /**
      * Method to update Equipment from request.
      *
-     * @param RequestAbstract  $request Request
-     * @param Equipment     $new     Model to modify
+     * @param RequestAbstract $request Request
+     * @param Equipment       $new     Model to modify
      *
      * @return Equipment
      *

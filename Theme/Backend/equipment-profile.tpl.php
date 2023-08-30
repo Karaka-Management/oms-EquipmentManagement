@@ -12,23 +12,23 @@
  */
 declare(strict_types=1);
 
-use Modules\EquipmentManagement\Models\NullEquipment;
 use Modules\EquipmentManagement\Models\EquipmentStatus;
+use Modules\EquipmentManagement\Models\NullEquipment;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
-$countryCodes  = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
-$countries     = \phpOMS\Localization\ISO3166NameEnum::getConstants();
+$countryCodes    = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
+$countries       = \phpOMS\Localization\ISO3166NameEnum::getConstants();
 $equipmentStatus = EquipmentStatus::getConstants();
 
 /**
  * @var \Modules\EquipmentManagement\Models\Equipment $equipment
  */
 $equipment       = $this->data['equipment'] ?? new NullEquipment();
-$files         = $equipment->files;
+$files           = $equipment->files;
 $equipmentImage  = $this->data['equipmentImage'] ?? new NullMedia();
 $equipmentTypes  = $this->data['types'] ?? [];
-$attributeView = $this->data['attributeView'];
+$attributeView   = $this->data['attributeView'];
 
 /**
  * @var \phpOMS\Views\View $this
@@ -165,7 +165,7 @@ echo $this->data['nav']->render();
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?equipment=' . $equipment->id) ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build('{/app}/fleet/inspection/create?equipment=' . $equipment->id); ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">

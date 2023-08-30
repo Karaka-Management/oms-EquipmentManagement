@@ -65,7 +65,7 @@ final class Installer extends InstallerAbstract
         }
 
         /** @var array $types */
-        $types        = \json_decode($fileContent, true);
+        $types          = \json_decode($fileContent, true);
         $equipmentTypes = self::createEquipmentTypes($app, $types);
 
         /* Inspection types */

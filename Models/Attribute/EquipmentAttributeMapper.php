@@ -37,10 +37,10 @@ final class EquipmentAttributeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'equipmgmt_equipment_attr_id'    => ['name' => 'equipmgmt_equipment_attr_id',    'type' => 'int', 'internal' => 'id'],
+        'equipmgmt_equipment_attr_id'         => ['name' => 'equipmgmt_equipment_attr_id',    'type' => 'int', 'internal' => 'id'],
         'equipmgmt_equipment_attr_equipment'  => ['name' => 'equipmgmt_equipment_attr_equipment',  'type' => 'int', 'internal' => 'ref'],
-        'equipmgmt_equipment_attr_type'  => ['name' => 'equipmgmt_equipment_attr_type',  'type' => 'int', 'internal' => 'type'],
-        'equipmgmt_equipment_attr_value' => ['name' => 'equipmgmt_equipment_attr_value', 'type' => 'int', 'internal' => 'value'],
+        'equipmgmt_equipment_attr_type'       => ['name' => 'equipmgmt_equipment_attr_type',  'type' => 'int', 'internal' => 'type'],
+        'equipmgmt_equipment_attr_value'      => ['name' => 'equipmgmt_equipment_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];
 
     /**

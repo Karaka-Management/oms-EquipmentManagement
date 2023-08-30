@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\EquipmentManagement\Models;
 
-use Modules\Media\Models\MediaMapper;
-use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use Modules\Editor\Models\EditorDocMapper;
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeMapper;
+use Modules\Media\Models\MediaMapper;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
