@@ -261,7 +261,7 @@ final class ApiInspectionTypeController extends Controller
             return;
         }
 
-        /** @var \Modules\EquipmentManagement\Models\InspectionType $equipmentType */
+        /** @var BaseStringL11nType $equipmentType */
         $equipmentType = InspectionTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $equipmentType, InspectionTypeMapper::class, 'equipment_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $equipmentType);
@@ -377,7 +377,7 @@ final class ApiInspectionTypeController extends Controller
             return;
         }
 
-        /** @var \Modules\EquipmentManagement\Models\InspectionTypeL11n $equipmentTypeL11n */
+        /** @var BaseStringL11n $equipmentTypeL11n */
         $equipmentTypeL11n = InspectionTypeL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $equipmentTypeL11n, InspectionTypeL11nMapper::class, 'equipment_type_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $equipmentTypeL11n);

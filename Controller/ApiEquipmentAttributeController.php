@@ -327,7 +327,7 @@ final class ApiEquipmentAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\EquipmentManagement\Models\EquipmentAttributeTypeL11n $equipmentAttributeTypeL11n */
+        /** @var BaseStringL11n $equipmentAttributeTypeL11n */
         $equipmentAttributeTypeL11n = EquipmentAttributeTypeL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $equipmentAttributeTypeL11n, EquipmentAttributeTypeL11nMapper::class, 'equipment_attribute_type_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $equipmentAttributeTypeL11n);
@@ -387,7 +387,7 @@ final class ApiEquipmentAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\EquipmentManagement\Models\EquipmentAttributeType $equipmentAttributeType */
+        /** @var AttributeType $equipmentAttributeType */
         $equipmentAttributeType = EquipmentAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $equipmentAttributeType, EquipmentAttributeTypeMapper::class, 'equipment_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $equipmentAttributeType);
@@ -418,7 +418,7 @@ final class ApiEquipmentAttributeController extends Controller
         /** @var AttributeValue $old */
         $old = EquipmentAttributeValueMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
-        /** @var \Modules\Attribute\Models\Attribute $type */
+        /** @var \Modules\Attribute\Models\Attribute $attr */
         $attr = EquipmentAttributeMapper::get()
             ->with('type')
             ->where('id', $request->getDataInt('attribute') ?? 0)
@@ -514,7 +514,7 @@ final class ApiEquipmentAttributeController extends Controller
             return;
         }
 
-        /** @var \Modules\EquipmentManagement\Models\EquipmentAttributeValueL11n $equipmentAttributeValueL11n */
+        /** @var BaseStringL11n $equipmentAttributeValueL11n */
         $equipmentAttributeValueL11n = EquipmentAttributeValueL11nMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $equipmentAttributeValueL11n, EquipmentAttributeValueL11nMapper::class, 'equipment_attribute_value_l11n', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $equipmentAttributeValueL11n);

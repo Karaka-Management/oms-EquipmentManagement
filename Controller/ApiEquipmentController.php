@@ -86,12 +86,12 @@ final class ApiEquipmentController extends Controller
      */
     public function createEquipmentFromRequest(RequestAbstract $request) : Equipment
     {
-        $equipment           = new Equipment();
-        $equipment->name     = $request->getDataString('name') ?? '';
-        $equipment->info     = $request->getDataString('info') ?? '';
-        $equipment->type     = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
-        $equipment->status   = $request->getDataInt('status') ?? EquipmentStatus::INACTIVE;
-        $equipment->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
+        $equipment         = new Equipment();
+        $equipment->name   = $request->getDataString('name') ?? '';
+        $equipment->info   = $request->getDataString('info') ?? '';
+        $equipment->type   = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
+        $equipment->status = $request->getDataInt('status') ?? EquipmentStatus::INACTIVE;
+        $equipment->unit   = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $equipment;
     }
