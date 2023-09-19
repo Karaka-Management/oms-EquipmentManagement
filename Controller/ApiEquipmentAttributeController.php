@@ -231,7 +231,9 @@ final class ApiEquipmentAttributeController extends Controller
 
         $this->updateModel($request->header->account, $old, $new, EquipmentAttributeMapper::class, 'equipment_attribute', $request->getOrigin());
 
-        if ($new->value->getValue() !== $old->value->getValue()) {
+        if ($new->value->getValue() !== $old->value->getValue()
+            && $new->type->custom
+        ) {
             $this->updateModel($request->header->account, $old->value, $new->value, EquipmentAttributeValueMapper::class, 'attribute_value', $request->getOrigin());
         }
 
