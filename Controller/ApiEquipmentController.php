@@ -478,11 +478,11 @@ final class ApiEquipmentController extends Controller
      */
     public function updateEquipmentFromRequest(RequestAbstract $request, Equipment $new) : Equipment
     {
-        $new->name     = $request->getDataString('name') ?? $new->name;
-        $new->info     = $request->getDataString('info') ?? $new->info;
-        $new->type     = $request->hasData('type') ? new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0)) : $new->type;
-        $new->status   = $request->getDataInt('status') ?? $new->status;
-        $new->unit     = $request->getDataInt('unit') ?? $this->app->unitId;
+        $new->name   = $request->getDataString('name') ?? $new->name;
+        $new->info   = $request->getDataString('info') ?? $new->info;
+        $new->type   = $request->hasData('type') ? new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0)) : $new->type;
+        $new->status = $request->getDataInt('status') ?? $new->status;
+        $new->unit   = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $new;
     }
