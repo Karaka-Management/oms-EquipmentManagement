@@ -193,8 +193,8 @@
                 "foreignTable": "equipmgmt_inspection_type",
                 "foreignKey": "equipmgmt_inspection_type_id"
             },
-            "equipmgmt_equipment_inspection_driver": {
-                "name": "equipmgmt_equipment_inspection_driver",
+            "equipmgmt_equipment_inspection_equipment": {
+                "name": "equipmgmt_equipment_inspection_equipment",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "equipmgmt_equipment",

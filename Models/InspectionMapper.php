@@ -37,7 +37,7 @@ final class InspectionMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'equipmgmt_equipment_inspection_id'          => ['name' => 'equipmgmt_equipment_inspection_id',    'type' => 'int',    'internal' => 'id'],
-        'equipmgmt_equipment_inspection_vehicle'     => ['name' => 'equipmgmt_equipment_inspection_vehicle', 'type' => 'int', 'internal' => 'reference'],
+        'equipmgmt_equipment_inspection_equipment'     => ['name' => 'equipmgmt_equipment_inspection_equipment', 'type' => 'int', 'internal' => 'reference'],
         'equipmgmt_equipment_inspection_description' => ['name' => 'equipmgmt_equipment_inspection_description', 'type' => 'string', 'internal' => 'description'],
         'equipmgmt_equipment_inspection_status'      => ['name' => 'equipmgmt_equipment_inspection_status',  'type' => 'int',    'internal' => 'status'],
         'equipmgmt_equipment_inspection_interval'    => ['name' => 'equipmgmt_equipment_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
