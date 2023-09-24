@@ -16,6 +16,7 @@ namespace Modules\EquipmentManagement\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
+use Modules\EquipmentManagement\tests\Controller\Api\ApiControllerAttributeTrait;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;
@@ -42,6 +43,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
      * @var \Modules\EquipmentManagement\Controller\ApiController
      */
     protected ModuleAbstract $module;
+    protected ModuleAbstract $attrModule;
 
     /**
      * {@inheritdoc}
@@ -83,8 +85,12 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->app->accountManager->add($account);
         $this->app->router = new WebRouter();
 
-        $this->module = $this->app->moduleManager->get('EquipmentManagement');
+        $this->module = $this->app->moduleManager->get('EquipmentManagement', 'Api');
+        $this->attrModule = $this->app->moduleManager->get('EquipmentManagement', 'ApiAttribute');
 
         TestUtils::setMember($this->module, 'app', $this->app);
+        TestUtils::setMember($this->attrModule, 'app', $this->app);
     }
+
+    use ApiControllerAttributeTrait;
 }
