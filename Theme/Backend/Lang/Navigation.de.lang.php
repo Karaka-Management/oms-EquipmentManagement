@@ -13,7 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Client'   => 'Klient',
-    'Region'   => 'Region',
-    'SalesRep' => 'VerkäufeRep',
+    'EquipmentManagement'      => 'Equipment Management',
+    'Equipments'               => 'Equipments',
+    'Inspections'              => 'Inspektionen',
+    'EquipmentInspectionTypes' => 'Equipment Inspektionstypen',
+    'EquipmentAttributes'      => 'Equipment Attribute',
 ]];
