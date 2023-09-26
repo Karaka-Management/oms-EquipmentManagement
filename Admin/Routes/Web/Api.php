@@ -53,7 +53,7 @@ return [
 
     '^.*/equipment/note.*$' => [
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiNoteCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => Controller::NAME,
@@ -62,7 +62,7 @@ return [
             ],
         ],
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiNoteEdit',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,

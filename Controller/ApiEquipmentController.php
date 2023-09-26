@@ -447,6 +447,23 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
+    public function apiEquipmentFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    {
+    }
+
+    /**
+     * Api method to update Equipment
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
     public function apiEquipmentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateEquipmentUpdate($request))) {
