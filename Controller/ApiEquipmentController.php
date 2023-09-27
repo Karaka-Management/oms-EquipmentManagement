@@ -45,7 +45,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -53,7 +53,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiEquipmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateEquipmentCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -235,7 +235,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -243,7 +243,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiMediaAddToEquipment(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiMediaAddToEquipment(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateMediaAddToEquipment($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -381,7 +381,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -389,7 +389,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateNoteCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -439,7 +439,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -447,7 +447,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiEquipmentFind(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentFind(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
     }
 
@@ -456,7 +456,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -464,7 +464,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiEquipmentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateEquipmentUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -530,7 +530,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -538,7 +538,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiEquipmentDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiEquipmentDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateEquipmentDelete($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -579,7 +579,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -587,7 +587,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         // @todo: check permissions
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocUpdate($request, $response, $data);
@@ -598,7 +598,7 @@ final class ApiEquipmentController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -606,7 +606,7 @@ final class ApiEquipmentController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         // @todo: check permissions
         $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocDelete($request, $response, $data);

@@ -45,14 +45,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewEquipmentManagementAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewEquipmentManagementAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/attribute-type-list');
@@ -74,14 +74,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewEquipmentManagementEquipmentList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewEquipmentManagementEquipmentList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -105,14 +105,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewEquipmentManagementAttributeType(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewEquipmentManagementAttributeType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/attribute-type');
@@ -140,14 +140,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewEquipmentManagementEquipmentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewEquipmentManagementEquipmentCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -173,14 +173,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewEquipmentManagementEquipmentProfile(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewEquipmentManagementEquipmentProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
