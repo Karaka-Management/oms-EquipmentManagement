@@ -24,7 +24,7 @@ use phpOMS\Uri\HttpUri;
 trait ApiControllerAttributeTrait
 {
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeTypeCreate() : void
@@ -42,7 +42,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeTypeL11nCreate() : void
@@ -60,7 +60,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeValueIntCreate() : void
@@ -80,7 +80,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeValueStrCreate() : void
@@ -99,7 +99,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeValueFloatCreate() : void
@@ -118,7 +118,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeValueDatCreate() : void
@@ -137,7 +137,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeCreate() : void
@@ -155,7 +155,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeValueCreateInvalidData() : void
@@ -171,7 +171,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeTypeCreateInvalidData() : void
@@ -187,7 +187,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeTypeL11nCreateInvalidData() : void
@@ -203,7 +203,7 @@ trait ApiControllerAttributeTrait
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
      * @group module
      */
     public function testApiEquipmentAttributeCreateInvalidData() : void
