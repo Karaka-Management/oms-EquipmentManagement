@@ -1,0 +1,49 @@
+{
+    "name": {
+        "id": 1008400000,
+        "internal": "EquipmentManagement",
+        "external": "Equipment Management"
+    },
+    "category": "Equipment",
+    "version": "1.0.0",
+    "requirements": {
+        "phpOMS": "1.0.0",
+        "phpOMS-db": "1.0.0"
+    },
+    "creator": {
+        "name": "Jingga",
+        "website": "jingga.app"
+    },
+    "description": "The buisness module.",
+    "directory": "EquipmentManagement",
+    "dependencies": {
+        "Admin": "1.0.0",
+        "Profile": "1.0.0",
+        "Media": "1.0.0",
+        "Editor": "1.0.0"
+    },
+    "providing": {
+        "Navigation": "*",
+        "Media": "*"
+    },
+    "load": [
+        {
+            "pid": [
+                "/equipment"
+            ],
+            "type": 4,
+            "for": 0,
+            "from": "EquipmentManagement",
+            "file": "EquipmentManagement"
+        },
+        {
+            "pid": [
+                "/"
+            ],
+            "type": 5,
+            "from": "EquipmentManagement",
+            "for": "Navigation",
+            "file": "Navigation"
+        }
+    ]
+}
