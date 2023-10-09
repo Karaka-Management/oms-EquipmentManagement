@@ -45,6 +45,6 @@ trait ApiControllerEquipmentTrait
         $request->setData('status', 1);
 
         $this->module->apiEquipmentCreate($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 }
