@@ -56,7 +56,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/attribute-type-list');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1003503001, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
 
         /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
         $attributes = EquipmentAttributeTypeMapper::getAll()

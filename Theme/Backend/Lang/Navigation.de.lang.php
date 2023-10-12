@@ -13,9 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
+    'EquipmentAttributes'      => 'Equipment Attribute',
+    'EquipmentInspectionTypes' => 'Equipment Inspektionstypen',
     'EquipmentManagement'      => 'Equipment Management',
     'Equipments'               => 'Equipments',
     'Inspections'              => 'Inspektionen',
-    'EquipmentInspectionTypes' => 'Equipment Inspektionstypen',
-    'EquipmentAttributes'      => 'Equipment Attribute',
 ]];

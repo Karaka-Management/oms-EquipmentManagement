@@ -61,7 +61,7 @@ final class ApiEquipmentAttributeController extends Controller
             return;
         }
 
-        $type      = EquipmentAttributeTypeMapper::get()->where('id', (int) $request->getData('type'))->execute();
+        $type      = EquipmentAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('type'))->execute();
         $attribute = $this->createAttributeFromRequest($request, $type);
         $this->createModel($request->header->account, $attribute, EquipmentAttributeMapper::class, 'attribute', $request->getOrigin());
         $this->createStandardCreateResponse($request, $response, $attribute);
@@ -359,7 +359,7 @@ final class ApiEquipmentAttributeController extends Controller
         }
 
         /** @var AttributeType $old */
-        $old = EquipmentAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = EquipmentAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateAttributeTypeFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, EquipmentAttributeTypeMapper::class, 'equipment_attribute_type', $request->getOrigin());
@@ -391,7 +391,7 @@ final class ApiEquipmentAttributeController extends Controller
         }
 
         /** @var AttributeType $equipmentAttributeType */
-        $equipmentAttributeType = EquipmentAttributeTypeMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $equipmentAttributeType = EquipmentAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $equipmentAttributeType, EquipmentAttributeTypeMapper::class, 'equipment_attribute_type', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $equipmentAttributeType);
     }
