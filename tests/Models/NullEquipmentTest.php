@@ -23,7 +23,7 @@ final class NullEquipmentTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\EquipmentManagement\Models\NullEquipment
-     * @group framework
+     * @group module
      */
     public function testNull() : void
     {
@@ -32,7 +32,7 @@ final class NullEquipmentTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Modules\EquipmentManagement\Models\NullEquipment
-     * @group framework
+     * @group module
      */
     public function testId() : void
     {
