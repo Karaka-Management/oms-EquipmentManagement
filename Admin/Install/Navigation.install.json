@@ -7,7 +7,7 @@
         "name": "EquipmentManagement",
         "uri": null,
         "target": "self",
-        "icon": "fa fa-wrench",
+        "icon": "build",
         "order": 80,
         "from": "EquipmentManagement",
         "permission": { "permission": 2, "category": null, "element": null },
