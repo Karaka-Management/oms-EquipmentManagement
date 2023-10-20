@@ -7,7 +7,7 @@
         "name": "EquipmentManagement",
         "uri": null,
         "target": "self",
-        "icon": "build",
+        "icon": "precision_manufacturing",
         "order": 80,
         "from": "EquipmentManagement",
         "permission": { "permission": 2, "category": null, "element": null },
