@@ -35,4 +35,6 @@ abstract class PermissionCategory extends Enum
     public const EQUIPMENT_INSPECTION = 5;
 
     public const EQUIPMENT_ATTRIBUTE_TYPE = 6;
+
+    public const EQUIPMENT_NOTE = 7;
 }

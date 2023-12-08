@@ -18,12 +18,14 @@ use Modules\Admin\Models\NullAccount;
 use Modules\EquipmentManagement\Models\Equipment;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentStatus;
+use Modules\EquipmentManagement\Models\PermissionCategory;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
 use Modules\Media\Models\ReferenceMapper;
+use phpOMS\Account\PermissionType;
 use phpOMS\Localization\NullBaseStringL11nType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
@@ -489,7 +491,7 @@ final class ApiEquipmentController extends Controller
      *
      * @return Equipment
      *
-     * @todo: implement
+     * @todo Implement API update function
      *
      * @since 1.0.0
      */
@@ -511,7 +513,7 @@ final class ApiEquipmentController extends Controller
      *
      * @return array<string, bool>
      *
-     * @todo: implement
+     * @todo Implement API validation function
      *
      * @since 1.0.0
      */
@@ -560,7 +562,7 @@ final class ApiEquipmentController extends Controller
      *
      * @return array<string, bool>
      *
-     * @todo: implement
+     * @todo Implement API validation function
      *
      * @since 1.0.0
      */
@@ -589,8 +591,17 @@ final class ApiEquipmentController extends Controller
      */
     public function apiNoteUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        // @todo: check permissions
-        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocUpdate($request, $response, $data);
+        $accountId = $request->header->account;
+        if (!$this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::EQUIPMENT_NOTE, $request->getDataInt('id'))
+        ) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::HIDDEN, '', '', []);
+            $response->header->status = RequestStatusCode::R_403;
+
+            return;
+        }
+
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorUpdate($request, $response, $data);
     }
 
     /**
@@ -608,7 +619,16 @@ final class ApiEquipmentController extends Controller
      */
     public function apiNoteDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        // @todo: check permissions
-        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDocDelete($request, $response, $data);
+        $accountId = $request->header->account;
+        if (!$this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::DELETE, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::EQUIPMENT_NOTE, $request->getDataInt('id'))
+        ) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::HIDDEN, '', '', []);
+            $response->header->status = RequestStatusCode::R_403;
+
+            return;
+        }
+
+        $this->app->moduleManager->get('Editor', 'Api')->apiEditorDelete($request, $response, $data);
     }
 }
