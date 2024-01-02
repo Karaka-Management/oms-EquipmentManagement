@@ -15,11 +15,15 @@ declare(strict_types=1);
 
 namespace Modules\EquipmentManagement\Controller;
 
+use Modules\EquipmentManagement\Models\Inspection;
+use Modules\EquipmentManagement\Models\InspectionMapper;
+use Modules\EquipmentManagement\Models\InspectionStatus;
 use Modules\EquipmentManagement\Models\InspectionTypeL11nMapper;
 use Modules\EquipmentManagement\Models\InspectionTypeMapper;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\BaseStringL11nType;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Localization\NullBaseStringL11nType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -34,6 +38,76 @@ use phpOMS\Message\ResponseAbstract;
  */
 final class ApiInspectionTypeController extends Controller
 {
+    /**
+     * Api method to create a vehicle
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiInspectionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        if (!empty($val = $this->validateInspectionCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        /** @var \Modules\FleetManagement\Models\Inspection $inspection */
+        $inspection = $this->createInspectionFromRequest($request);
+        $this->createModel($request->header->account, $inspection, InspectionMapper::class, 'inspection', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $inspection);
+    }
+
+    /**
+     * Method to create vehicle from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Inspection Returns the created vehicle from the request
+     *
+     * @since 1.0.0
+     */
+    public function createInspectionFromRequest(RequestAbstract $request) : Inspection
+    {
+        $inspection              = new Inspection();
+        $inspection->reference   = (int) $request->getData('ref');
+        $inspection->description = $request->getDataString('description') ?? '';
+        $inspection->status      = $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->next        = $request->getDataDateTime('next') ?? null;
+        $inspection->date        = $request->getDataDateTime('date') ?? null;
+        $inspection->interval    = $request->getDataInt('interval') ?? 0;
+        $inspection->type        = new NullBaseStringL11nType((int) $request->getData('type'));
+
+        return $inspection;
+    }
+
+    /**
+     * Validate vehicle create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateInspectionCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['ref'] = !$request->hasData('ref'))) {
+            return $val;
+        }
+
+        return [];
+    }
+
     /**
      * Api method to create item attribute type
      *

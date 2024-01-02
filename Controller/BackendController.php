@@ -20,6 +20,7 @@ use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeL11nMappe
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeMapper;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
+use Modules\EquipmentManagement\Models\InspectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\MediaTypeMapper;
 use Modules\Organization\Models\UnitMapper;
@@ -41,7 +42,7 @@ use phpOMS\Views\View;
 final class BackendController extends Controller
 {
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -70,7 +71,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -101,7 +102,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -136,7 +137,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -169,7 +170,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -206,6 +207,15 @@ final class BackendController extends Controller
             ->execute();
 
         $view->data['equipment'] = $equipment;
+
+        $inspections = InspectionMapper::getAll()
+            ->with('type')
+            ->with('type/l11n')
+            ->where('reference', $equipment->id)
+            ->where('type/l11n/language', $response->header->l11n->language)
+            ->execute();
+
+        $view->data['inspections'] = $inspections;
 
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(EquipmentMapper::HAS_MANY['files']['external'], 'file')

@@ -14,7 +14,6 @@
         "name": "Jingga",
         "website": "jingga.app"
     },
-    "description": "The buisness module.",
     "directory": "EquipmentManagement",
     "dependencies": {
         "Admin": "1.0.0",

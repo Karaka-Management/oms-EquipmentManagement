@@ -55,8 +55,8 @@ echo $this->data['nav']->render();
                         <div class="portlet-head"><?= $this->getHtml('Profile'); ?></div>
                         <div class="portlet-body">
                             <div class="form-group">
-                                <label for="iEquipmentEquipmentProfileName"><?= $this->getHtml('Name'); ?></label>
-                                <input type="text" id="iEquipmentEquipmentProfileName" name="name" value="<?= $this->printHtml($equipment->name); ?>">
+                                <label for="iEquipmentProfileName"><?= $this->getHtml('Name'); ?></label>
+                                <input type="text" id="iEquipmentProfileName" name="name" value="<?= $this->printHtml($equipment->name); ?>">
                             </div>
 
                             <div class="form-group">
@@ -172,17 +172,24 @@ echo $this->data['nav']->render();
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
                         <div class="portlet-head"><?= $this->getHtml('Upcoming'); ?></div>
-                        <table id="upcomingInspections" class="default">
+                        <table id="upcomingInspections" class="default sticky">
                             <thead>
                                 <tr>
                                     <td><?= $this->getHtml('Date'); ?>
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
+                            <?php foreach ($this->data['inspections'] as $inspection) :
+                                // @todo handle old inspections in the past? maybe use a status?!
+                                if ($inspection->next === null) {
+                                    continue;
+                                }
+                            ?>
                                 <tr>
+                                    <td><?= $inspection->next->format('Y-m-d H:i'); ?>
+                                    <td><?= $this->printHtml($inspection->type->getL11n()); ?>
                                     <td>
-                                    <td>
-                                    <td>
+                            <?php endforeach; ?>
                         </table>
                     </section>
                 </div>
@@ -190,17 +197,19 @@ echo $this->data['nav']->render();
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
                         <div class="portlet-head"><?= $this->getHtml('History'); ?></div>
-                        <table id="historicInspections" class="default">
+                        <table id="historicInspections" class="default sticky">
                             <thead>
                                 <tr>
                                     <td><?= $this->getHtml('Date'); ?>
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
+                            <?php foreach ($this->data['inspections'] as $inspection) : ?>
                                 <tr>
+                                    <td><?= $inspection->date->format('Y-m-d H:i'); ?>
+                                    <td><?= $this->printHtml($inspection->type->getL11n()); ?>
                                     <td>
-                                    <td>
-                                    <td>
+                            <?php endforeach; ?>
                         </table>
                     </section>
                 </div>

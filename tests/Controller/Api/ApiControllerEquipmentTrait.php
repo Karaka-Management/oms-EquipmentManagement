@@ -17,9 +17,7 @@ namespace Modules\EquipmentManagement\tests\Controller\Api;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Uri\HttpUri;
-use phpOMS\Utils\TestUtils;
 use phpOMS\Utils\RnG\Text;
 
 trait ApiControllerEquipmentTrait
@@ -30,7 +28,7 @@ trait ApiControllerEquipmentTrait
      */
     public function testApiEquipmentCreate() : void
     {
-        $equipmentType = EquipmentTypeMapper::getAll()->execute();
+        $equipmentType      = EquipmentTypeMapper::getAll()->execute();
         $equipmentTypeCount = \count($equipmentType);
 
         $response = new HttpResponse();

@@ -36,11 +36,7 @@ class Equipment implements \JsonSerializable
 
     public string $info = '';
 
-    public array $drivers = [];
-
     public array $inspections = [];
-
-    public array $milage = [];
 
     public int $unit = 0;
 
