@@ -13,10 +13,6 @@
 declare(strict_types=1);
 
 return ['EquipmentManagement' => [
-    ':status1'      => '',
-    ':status2'      => '',
-    ':status3'      => '',
-    ':status4'      => '',
     'Attributes'    => '',
     'Costs'         => '',
     'Date'          => '',
@@ -24,7 +20,6 @@ return ['EquipmentManagement' => [
     'EIN'           => '',
     'Ein'           => '',
     'End'           => '',
-    'Equipment'     => '',
     'Equipments'    => '',
     'Files'         => '',
     'History'       => '',

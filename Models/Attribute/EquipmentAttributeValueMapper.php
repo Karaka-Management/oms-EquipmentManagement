@@ -59,6 +59,7 @@ final class EquipmentAttributeValueMapper extends DataMapperFactory
             'mapper'   => EquipmentAttributeValueL11nMapper::class,
             'table'    => 'equipmgmt_attr_value_l11n',
             'self'     => 'equipmgmt_attr_value_l11n_value',
+            'column'   => 'content',
             'external' => null,
         ],
     ];

@@ -24,7 +24,6 @@ return ['EquipmentManagement' => [
     'EIN'           => '',
     'Ein'           => 'Ein',
     'End'           => 'End',
-    'Equipment'     => 'Equipment',
     'Equipments'    => 'Equipments',
     'Files'         => 'Files',
     'History'       => 'History',
