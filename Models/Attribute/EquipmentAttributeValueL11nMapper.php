@@ -37,10 +37,10 @@ final class EquipmentAttributeValueL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'equipmgmt_attr_value_l11n_id'     => ['name' => 'equipmgmt_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
-        'equipmgmt_attr_value_l11n_title'  => ['name' => 'equipmgmt_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'equipmgmt_attr_value_l11n_value'  => ['name' => 'equipmgmt_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
-        'equipmgmt_attr_value_l11n_lang'   => ['name' => 'equipmgmt_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
+        'equipmgmt_attr_value_l11n_id'    => ['name' => 'equipmgmt_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_attr_value_l11n_title' => ['name' => 'equipmgmt_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'equipmgmt_attr_value_l11n_value' => ['name' => 'equipmgmt_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
+        'equipmgmt_attr_value_l11n_lang'  => ['name' => 'equipmgmt_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

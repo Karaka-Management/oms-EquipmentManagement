@@ -17,7 +17,7 @@ namespace Modules\EquipmentManagement\Models;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- *  mapper class.
+ * Inspection mapper class.
  *
  * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
@@ -36,14 +36,14 @@ final class InspectionMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'equipmgmt_equipment_inspection_id'            => ['name' => 'equipmgmt_equipment_inspection_id',    'type' => 'int',    'internal' => 'id'],
-        'equipmgmt_equipment_inspection_equipment'     => ['name' => 'equipmgmt_equipment_inspection_equipment', 'type' => 'int', 'internal' => 'reference'],
-        'equipmgmt_equipment_inspection_description'   => ['name' => 'equipmgmt_equipment_inspection_description', 'type' => 'string', 'internal' => 'description'],
-        'equipmgmt_equipment_inspection_status'        => ['name' => 'equipmgmt_equipment_inspection_status',  'type' => 'int',    'internal' => 'status'],
-        'equipmgmt_equipment_inspection_interval'      => ['name' => 'equipmgmt_equipment_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
-        'equipmgmt_equipment_inspection_next'          => ['name' => 'equipmgmt_equipment_inspection_next',  'type' => 'DateTime', 'internal' => 'next'],
-        'equipmgmt_equipment_inspection_date'          => ['name' => 'equipmgmt_equipment_inspection_date',  'type' => 'DateTime', 'internal' => 'date'],
-        'equipmgmt_equipment_inspection_type'          => ['name' => 'equipmgmt_equipment_inspection_type',  'type' => 'int', 'internal' => 'type'],
+        'equipmgmt_equipment_inspection_id'          => ['name' => 'equipmgmt_equipment_inspection_id',    'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_equipment_inspection_equipment'   => ['name' => 'equipmgmt_equipment_inspection_equipment', 'type' => 'int', 'internal' => 'reference'],
+        'equipmgmt_equipment_inspection_description' => ['name' => 'equipmgmt_equipment_inspection_description', 'type' => 'string', 'internal' => 'description'],
+        'equipmgmt_equipment_inspection_status'      => ['name' => 'equipmgmt_equipment_inspection_status',  'type' => 'int',    'internal' => 'status'],
+        'equipmgmt_equipment_inspection_interval'    => ['name' => 'equipmgmt_equipment_inspection_interval',  'type' => 'int', 'internal' => 'interval'],
+        'equipmgmt_equipment_inspection_next'        => ['name' => 'equipmgmt_equipment_inspection_next',  'type' => 'DateTime', 'internal' => 'next'],
+        'equipmgmt_equipment_inspection_date'        => ['name' => 'equipmgmt_equipment_inspection_date',  'type' => 'DateTime', 'internal' => 'date'],
+        'equipmgmt_equipment_inspection_type'        => ['name' => 'equipmgmt_equipment_inspection_type',  'type' => 'int', 'internal' => 'type'],
     ];
 
     /**

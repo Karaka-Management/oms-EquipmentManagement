@@ -92,7 +92,7 @@ final class ApiEquipmentController extends Controller
         $equipment->name   = $request->getDataString('name') ?? '';
         $equipment->info   = $request->getDataString('info') ?? '';
         $equipment->type   = new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0));
-        $equipment->status = $request->getDataInt('status') ?? EquipmentStatus::INACTIVE;
+        $equipment->status = EquipmentStatus::tryFromValue($request->getDataInt('status')) ?? EquipmentStatus::INACTIVE;
         $equipment->unit   = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $equipment;
@@ -500,7 +500,7 @@ final class ApiEquipmentController extends Controller
         $new->name   = $request->getDataString('name') ?? $new->name;
         $new->info   = $request->getDataString('info') ?? $new->info;
         $new->type   = $request->hasData('type') ? new NullBaseStringL11nType((int) ($request->getDataInt('type') ?? 0)) : $new->type;
-        $new->status = $request->getDataInt('status') ?? $new->status;
+        $new->status = EquipmentStatus::tryFromValue($request->getDataInt('status')) ?? $new->status;
         $new->unit   = $request->getDataInt('unit') ?? $this->app->unitId;
 
         return $new;

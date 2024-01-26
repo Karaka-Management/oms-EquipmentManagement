@@ -24,11 +24,9 @@ $equipmentStatus = EquipmentStatus::getConstants();
 /**
  * @var \Modules\EquipmentManagement\Models\Equipment $equipment
  */
-$equipment       = $this->data['equipment'] ?? new NullEquipment();
-$files           = $equipment->files;
-$equipmentImage  = $this->data['equipmentImage'] ?? new NullMedia();
-$equipmentTypes  = $this->data['types'] ?? [];
-$attributeView   = $this->data['attributeView'];
+$equipment      = $this->data['equipment'] ?? new NullEquipment();
+$equipmentImage = $this->data['equipmentImage'] ?? new NullMedia();
+$equipmentTypes = $this->data['types'] ?? [];
 
 /**
  * @var \phpOMS\Views\View $this
@@ -142,7 +140,7 @@ echo $this->data['nav']->render();
         <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <?= $attributeView->render(
+                <?= $this->data['attributeView']->render(
                     $equipment->attributes,
                     $this->data['attributeTypes'] ?? [],
                     $this->data['units'] ?? [],

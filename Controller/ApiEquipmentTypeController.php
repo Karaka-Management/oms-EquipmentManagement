@@ -73,7 +73,10 @@ final class ApiEquipmentTypeController extends Controller
     private function createEquipmentTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
         $equipmentType = new BaseStringL11nType();
-        $equipmentType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $equipmentType->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
         $equipmentType->title = $request->getDataString('name') ?? '';
 
         return $equipmentType;
@@ -137,12 +140,10 @@ final class ApiEquipmentTypeController extends Controller
      */
     private function createEquipmentTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $equipmentTypeL11n      = new BaseStringL11n();
-        $equipmentTypeL11n->ref = $request->getDataInt('type') ?? 0;
-        $equipmentTypeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $equipmentTypeL11n->content = $request->getDataString('title') ?? '';
+        $equipmentTypeL11n           = new BaseStringL11n();
+        $equipmentTypeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $equipmentTypeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $equipmentTypeL11n->content  = $request->getDataString('title') ?? '';
 
         return $equipmentTypeL11n;
     }
@@ -327,10 +328,8 @@ final class ApiEquipmentTypeController extends Controller
      */
     public function updateEquipmentTypeL11nFromRequest(RequestAbstract $request, BaseStringL11n $new) : BaseStringL11n
     {
-        $new->setLanguage(
-            $request->getDataString('language') ?? $new->language
-        );
-        $new->content = $request->getDataString('title') ?? $new->content;
+        $new->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $new->language;
+        $new->content  = $request->getDataString('title') ?? $new->content;
 
         return $new;
     }

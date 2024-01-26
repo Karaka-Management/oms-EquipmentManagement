@@ -39,14 +39,14 @@ final class EquipmentMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'equipmgmt_equipment_id'                      => ['name' => 'equipmgmt_equipment_id',         'type' => 'int',      'internal' => 'id'],
-        'equipmgmt_equipment_name'                    => ['name' => 'equipmgmt_equipment_name',      'type' => 'string',   'internal' => 'name'],
-        'equipmgmt_equipment_status'                  => ['name' => 'equipmgmt_equipment_status',      'type' => 'int',   'internal' => 'status'],
-        'equipmgmt_equipment_info'                    => ['name' => 'equipmgmt_equipment_info',      'type' => 'string',   'internal' => 'info'],
-        'equipmgmt_equipment_unit'                    => ['name' => 'equipmgmt_equipment_unit',      'type' => 'int',   'internal' => 'unit'],
-        'equipmgmt_equipment_type'                    => ['name' => 'equipmgmt_equipment_type',      'type' => 'int',   'internal' => 'type'],
-        'equipmgmt_equipment_responsible'             => ['name' => 'equipmgmt_equipment_responsible',      'type' => 'int',   'internal' => 'responsible'],
-        'equipmgmt_equipment_created_at'              => ['name' => 'equipmgmt_equipment_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'equipmgmt_equipment_id'          => ['name' => 'equipmgmt_equipment_id',         'type' => 'int',      'internal' => 'id'],
+        'equipmgmt_equipment_name'        => ['name' => 'equipmgmt_equipment_name',      'type' => 'string',   'internal' => 'name'],
+        'equipmgmt_equipment_status'      => ['name' => 'equipmgmt_equipment_status',      'type' => 'int',   'internal' => 'status'],
+        'equipmgmt_equipment_info'        => ['name' => 'equipmgmt_equipment_info',      'type' => 'string',   'internal' => 'info'],
+        'equipmgmt_equipment_unit'        => ['name' => 'equipmgmt_equipment_unit',      'type' => 'int',   'internal' => 'unit'],
+        'equipmgmt_equipment_type'        => ['name' => 'equipmgmt_equipment_type',      'type' => 'int',   'internal' => 'type'],
+        'equipmgmt_equipment_responsible' => ['name' => 'equipmgmt_equipment_responsible',      'type' => 'int',   'internal' => 'responsible'],
+        'equipmgmt_equipment_created_at'  => ['name' => 'equipmgmt_equipment_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**
@@ -56,7 +56,7 @@ final class EquipmentMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const HAS_MANY = [
-        'files'        => [
+        'files' => [
             'mapper'   => MediaMapper::class,
             'table'    => 'equipmgmt_equipment_media',
             'external' => 'equipmgmt_equipment_media_media',
@@ -84,8 +84,8 @@ final class EquipmentMapper extends DataMapperFactory
      */
     public const OWNS_ONE = [
         'type' => [
-            'mapper'     => EquipmentTypeMapper::class,
-            'external'   => 'equipmgmt_equipment_type',
+            'mapper'   => EquipmentTypeMapper::class,
+            'external' => 'equipmgmt_equipment_type',
         ],
     ];
 

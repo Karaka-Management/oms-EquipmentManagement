@@ -37,8 +37,8 @@ final class EquipmentTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'equipmgmt_equipment_type_id'         => ['name' => 'equipmgmt_equipment_type_id',       'type' => 'int',    'internal' => 'id'],
-        'equipmgmt_equipment_type_name'       => ['name' => 'equipmgmt_equipment_type_name',     'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
+        'equipmgmt_equipment_type_id'   => ['name' => 'equipmgmt_equipment_type_id',       'type' => 'int',    'internal' => 'id'],
+        'equipmgmt_equipment_type_name' => ['name' => 'equipmgmt_equipment_type_name',     'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
 
     ];
 

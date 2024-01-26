@@ -17,7 +17,6 @@ namespace Modules\EquipmentManagement\tests\Controller\Api;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\RnG\Text;
 
 trait ApiControllerEquipmentTrait
@@ -32,7 +31,7 @@ trait ApiControllerEquipmentTrait
         $equipmentTypeCount = \count($equipmentType);
 
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $LOREM       = \array_slice(Text::LOREM_IPSUM, 0, 25);
         $LOREM_COUNT = \count($LOREM) - 1;

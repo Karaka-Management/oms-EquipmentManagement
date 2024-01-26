@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\EquipmentManagement\Controller;
 
-use Modules\Admin\Models\LocalizationMapper;
-use Modules\Admin\Models\SettingsEnum;
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeL11nMapper;
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeMapper;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
@@ -152,14 +150,11 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/equipment-profile');
+        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/equipment-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008402001, $request, $response);
 
-        /** @var \Model\Setting $settings */
-        $settings = $this->app->appSettings->get(null, SettingsEnum::DEFAULT_LOCALIZATION);
-
-        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
-        $view->data['attributeView']->data['default_localization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+        $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
 
         $view->data['media-upload']    = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['equipment-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
@@ -179,11 +174,11 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewEquipmentManagementEquipmentProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewEquipmentManagementEquipmentView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/equipment-profile');
+        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/equipment-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008402001, $request, $response);
 
         // @todo This langauge filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
@@ -192,6 +187,7 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
+            //->with('attributes/value/l11n')
             ->with('files')
             ->with('files/types')
             ->with('type')
@@ -202,6 +198,7 @@ final class BackendController extends Controller
             ->where('type/l11n/language', $response->header->l11n->language)
             ->where('fuelType/l11n/language', $response->header->l11n->language)
             ->where('attributes/type/l11n/language', $response->header->l11n->language)
+            //->where('attributes/value/l11n/language', $response->header->l11n->language)
             ->execute();
 
         $view->data['equipment'] = $equipment;
@@ -249,11 +246,8 @@ final class BackendController extends Controller
 
         $view->data['units'] = $units;
 
-        /** @var \Model\Setting $settings */
-        $settings = $this->app->appSettings->get(null, SettingsEnum::DEFAULT_LOCALIZATION);
-
-        $view->data['attributeView']                              = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
-        $view->data['attributeView']->data['default_localization'] = LocalizationMapper::get()->where('id', (int) $settings->id)->execute();
+        $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);
+        $view->data['attributeView']->data['default_localization'] = $this->app->l11nServer;
 
         $view->data['media-upload']    = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['equipment-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);

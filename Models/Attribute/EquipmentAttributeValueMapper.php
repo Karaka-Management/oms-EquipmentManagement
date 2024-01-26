@@ -37,15 +37,15 @@ final class EquipmentAttributeValueMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'equipmgmt_attr_value_id'                => ['name' => 'equipmgmt_attr_value_id',       'type' => 'int',      'internal' => 'id'],
-        'equipmgmt_attr_value_default'           => ['name' => 'equipmgmt_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
-        'equipmgmt_attr_value_valueStr'          => ['name' => 'equipmgmt_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
-        'equipmgmt_attr_value_valueInt'          => ['name' => 'equipmgmt_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
-        'equipmgmt_attr_value_valueDec'          => ['name' => 'equipmgmt_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
-        'equipmgmt_attr_value_valueDat'          => ['name' => 'equipmgmt_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
-        'equipmgmt_attr_value_unit'              => ['name' => 'equipmgmt_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
-        'equipmgmt_attr_value_deptype'           => ['name' => 'equipmgmt_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
-        'equipmgmt_attr_value_depvalue'          => ['name' => 'equipmgmt_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
+        'equipmgmt_attr_value_id'       => ['name' => 'equipmgmt_attr_value_id',       'type' => 'int',      'internal' => 'id'],
+        'equipmgmt_attr_value_default'  => ['name' => 'equipmgmt_attr_value_default',  'type' => 'bool',     'internal' => 'isDefault'],
+        'equipmgmt_attr_value_valueStr' => ['name' => 'equipmgmt_attr_value_valueStr', 'type' => 'string',   'internal' => 'valueStr'],
+        'equipmgmt_attr_value_valueInt' => ['name' => 'equipmgmt_attr_value_valueInt', 'type' => 'int',      'internal' => 'valueInt'],
+        'equipmgmt_attr_value_valueDec' => ['name' => 'equipmgmt_attr_value_valueDec', 'type' => 'float',    'internal' => 'valueDec'],
+        'equipmgmt_attr_value_valueDat' => ['name' => 'equipmgmt_attr_value_valueDat', 'type' => 'DateTime', 'internal' => 'valueDat'],
+        'equipmgmt_attr_value_unit'     => ['name' => 'equipmgmt_attr_value_unit', 'type' => 'string', 'internal' => 'unit'],
+        'equipmgmt_attr_value_deptype'  => ['name' => 'equipmgmt_attr_value_deptype', 'type' => 'int', 'internal' => 'dependingAttributeType'],
+        'equipmgmt_attr_value_depvalue' => ['name' => 'equipmgmt_attr_value_depvalue', 'type' => 'int', 'internal' => 'dependingAttributeValue'],
     ];
 
     /**

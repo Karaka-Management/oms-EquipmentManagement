@@ -80,7 +80,7 @@ final class ApiInspectionTypeController extends Controller
         $inspection              = new Inspection();
         $inspection->reference   = (int) $request->getData('ref');
         $inspection->description = $request->getDataString('description') ?? '';
-        $inspection->status      = $request->getDataInt('status') ?? InspectionStatus::TODO;
+        $inspection->status      = InspectionStatus::tryFromValue($request->getDataInt('status')) ?? InspectionStatus::TODO;
         $inspection->next        = $request->getDataDateTime('next') ?? null;
         $inspection->date        = $request->getDataDateTime('date') ?? null;
         $inspection->interval    = $request->getDataInt('interval') ?? 0;
@@ -147,7 +147,10 @@ final class ApiInspectionTypeController extends Controller
     private function createInspectionTypeFromRequest(RequestAbstract $request) : BaseStringL11nType
     {
         $equipmentType = new BaseStringL11nType();
-        $equipmentType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $equipmentType->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
         $equipmentType->title = $request->getDataString('name') ?? '';
 
         return $equipmentType;
@@ -211,12 +214,10 @@ final class ApiInspectionTypeController extends Controller
      */
     private function createInspectionTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $equipmentTypeL11n      = new BaseStringL11n();
-        $equipmentTypeL11n->ref = $request->getDataInt('type') ?? 0;
-        $equipmentTypeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $equipmentTypeL11n->content = $request->getDataString('title') ?? '';
+        $equipmentTypeL11n           = new BaseStringL11n();
+        $equipmentTypeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $equipmentTypeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $equipmentTypeL11n->content  = $request->getDataString('title') ?? '';
 
         return $equipmentTypeL11n;
     }
@@ -401,10 +402,8 @@ final class ApiInspectionTypeController extends Controller
      */
     public function updateInspectionTypeL11nFromRequest(RequestAbstract $request, BaseStringL11n $new) : BaseStringL11n
     {
-        $new->setLanguage(
-            $request->getDataString('language') ?? $new->language
-        );
-        $new->content = $request->getDataString('title') ?? $new->content;
+        $new->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $new->language;
+        $new->content  = $request->getDataString('title') ?? $new->content;
 
         return $new;
     }

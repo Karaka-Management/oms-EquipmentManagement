@@ -61,12 +61,15 @@ final class ApiEquipmentAttributeController extends Controller
             return;
         }
 
-        $type = EquipmentAttributeTypeMapper::get()->with('defaults')->where('id', (int) $request->getData('type'))->execute();
+        $type = EquipmentAttributeTypeMapper::get()
+            ->with('defaults')
+            ->where('id', (int) $request->getData('type'))
+            ->execute();
 
         if (!$type->repeatable) {
             $attr = EquipmentAttributeMapper::count()
                 ->with('type')
-                ->where('type/id', (int) $request->getData('type'))
+                ->where('type/id', $type->id)
                 ->where('ref', (int) $request->getData('ref'))
                 ->execute();
 
@@ -164,13 +167,20 @@ final class ApiEquipmentAttributeController extends Controller
             ->where('id', $request->getDataInt('type') ?? 0)
             ->execute();
 
+        if ($type->isInternal) {
+            $response->header->status = RequestStatusCode::R_403;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
         $attrValue = $this->createAttributeValueFromRequest($request, $type);
         $this->createModel($request->header->account, $attrValue, EquipmentAttributeValueMapper::class, 'attr_value', $request->getOrigin());
 
         if ($attrValue->isDefault) {
             $this->createModelRelation(
                 $request->header->account,
-                (int) $request->getData('type'),
+                $type->id,
                 $attrValue->id,
                 EquipmentAttributeTypeMapper::class, 'defaults', '', $request->getOrigin()
             );

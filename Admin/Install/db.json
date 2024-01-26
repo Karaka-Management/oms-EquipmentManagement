@@ -278,6 +278,11 @@
                 "type": "TINYINT(1)",
                 "null": false
             },
+            "equipmgmt_attr_type_internal": {
+                "name": "equipmgmt_attr_type_internal",
+                "type": "TINYINT(1)",
+                "null": false
+            },
             "equipmgmt_attr_type_required": {
                 "description": "Every equipment must have this attribute type if set to true.",
                 "name": "equipmgmt_attr_type_required",
