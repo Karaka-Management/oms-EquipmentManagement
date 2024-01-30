@@ -55,7 +55,7 @@ final class InspectionMapper extends DataMapperFactory
     public const OWNS_ONE = [
         'type' => [
             'mapper'   => InspectionTypeMapper::class,
-            'external' => 'equipmgmt_equipment_type',
+            'external' => 'equipmgmt_equipment_inspection_type',
         ],
     ];
 
