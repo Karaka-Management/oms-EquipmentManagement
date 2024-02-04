@@ -212,6 +212,8 @@ final class BackendController extends Controller
 
         $view->data['inspections'] = $inspections;
 
+        // @feature Create a new read mapper function that returns relation models instead of its own model
+        //      https://github.com/Karaka-Management/phpOMS/issues/320
         $query   = new Builder($this->app->dbPool->get());
         $results = $query->selectAs(EquipmentMapper::HAS_MANY['files']['external'], 'file')
             ->from(EquipmentMapper::TABLE)
