@@ -77,7 +77,18 @@ return [
 
     '^.*/equipment/inspection/list(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentList',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::EQUIPMENT,
+            ],
+        ],
+    ],
+    '^.*/equipment/inspection/type/list(\?.*$|$)' => [
+        [
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionTypeList',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,

@@ -94,7 +94,7 @@ final class Installer extends InstallerAbstract
         $equipmentTypes = [];
 
         /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentTypeController $module */
-        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipmentType');
+        $module = $app->moduleManager->get('EquipmentManagement', 'ApiEquipmentType');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -155,7 +155,7 @@ final class Installer extends InstallerAbstract
         $inspectionTypes = [];
 
         /** @var \Modules\EquipmentManagement\Controller\ApiInspectionTypeController $module */
-        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiInspectionType');
+        $module = $app->moduleManager->get('EquipmentManagement', 'ApiInspectionType');
 
         /** @var array $type */
         foreach ($types as $type) {
@@ -216,7 +216,7 @@ final class Installer extends InstallerAbstract
         $itemAttrType = [];
 
         /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipmentAttribute');
+        $module = $app->moduleManager->get('EquipmentManagement', 'ApiEquipmentAttribute');
 
         /** @var array $attribute */
         foreach ($attributes as $attribute) {
@@ -284,7 +284,7 @@ final class Installer extends InstallerAbstract
         $itemAttrValue = [];
 
         /** @var \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController $module */
-        $module = $app->moduleManager->getModuleInstance('EquipmentManagement', 'ApiEquipmentAttribute');
+        $module = $app->moduleManager->get('EquipmentManagement', 'ApiEquipmentAttribute');
 
         foreach ($attributes as $attribute) {
             $itemAttrValue[$attribute['name']] = [];

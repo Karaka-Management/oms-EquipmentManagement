@@ -19,6 +19,7 @@ use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeMapper;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use Modules\EquipmentManagement\Models\InspectionMapper;
+use Modules\EquipmentManagement\Models\InspectionTypeMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\MediaTypeMapper;
 use Modules\Organization\Models\UnitMapper;
@@ -253,6 +254,62 @@ final class BackendController extends Controller
 
         $view->data['media-upload']    = new \Modules\Media\Theme\Backend\Components\Upload\BaseView($this->app->l11nManager, $request, $response);
         $view->data['equipment-notes'] = new \Modules\Editor\Theme\Backend\Components\Compound\BaseView($this->app->l11nManager, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewEquipmentManagementInspectionList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/inspection-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008401001, $request, $response);
+
+        $list = InspectionMapper::getAll()
+            ->sort('id', 'DESC')
+            ->execute();
+
+        $view->data['inspections'] = $list;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewEquipmentManagementInspectionTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/inspection-type-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008401001, $request, $response);
+
+        $list = InspectionTypeMapper::getAll()
+            ->sort('id', 'DESC')
+            ->execute();
+
+        $view->data['inspections'] = $list;
 
         return $view;
     }
