@@ -28,6 +28,8 @@ $equipment      = $this->data['equipment'] ?? new NullEquipment();
 $equipmentImage = $this->data['equipmentImage'] ?? new NullMedia();
 $equipmentTypes = $this->data['types'] ?? [];
 
+$isNew = $equipment->id === 0;
+
 /**
  * @var \phpOMS\Views\View $this
  */
@@ -55,16 +57,6 @@ echo $this->data['nav']->render();
                             <div class="form-group">
                                 <label for="iEquipmentProfileName"><?= $this->getHtml('Name'); ?></label>
                                 <input type="text" id="iEquipmentProfileName" name="name" value="<?= $this->printHtml($equipment->name); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iEquipmentDriver"><?= $this->getHtml('Driver'); ?></label>
-                                <input type="text" id="iEquipmentDriver" name="driver" value="" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="iEquipmentEin"><?= $this->getHtml('EIN'); ?></label>
-                                <input type="text" id="iEquipmentEin" name="vin" value="<?= $this->printHtml($equipment->getAttribute('vin')->value->getValue()); ?>">
                             </div>
 
                             <div class="form-group">
@@ -107,12 +99,12 @@ echo $this->data['nav']->render();
 
                             <div class="form-group">
                                 <label for="iEquipmentPrice"><?= $this->getHtml('PurchasePrice'); ?></label>
-                                <input type="number" step="0.01" id="iEquipmentPrice" name="purchase_price" value="<?= $this->printHtml($equipment->getAttribute('purchase_price')->value->getValue()); ?>">
+                                <input type="number" step="any" id="iEquipmentPrice" name="purchase_price" value="<?= $this->printHtml($equipment->getAttribute('purchase_price')->value->getValue()); ?>">
                             </div>
 
                             <div class="form-group">
                                 <label for="iEquipmentPrice"><?= $this->getHtml('LeasingFee'); ?></label>
-                                <input type="number" step="0.01" id="iEquipmentPrice" name="leasing_fee" value="<?= $this->printHtml($equipment->getAttribute('leasing_fee')->value->getValue()); ?>">
+                                <input type="number" step="any" id="iEquipmentPrice" name="leasing_fee" value="<?= $this->printHtml($equipment->getAttribute('leasing_fee')->value->getValue()); ?>">
                             </div>
                         </div>
                         <div class="portlet-foot">
@@ -177,7 +169,7 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
-                            <?php foreach ($this->data['inspections'] as $inspection) :
+                            <?php foreach (($this->data['inspections'] ?? []) as $inspection) :
                                 // @todo handle old inspections in the past? maybe use a status?!
                                 if ($inspection->next === null) {
                                     continue;
@@ -202,7 +194,7 @@ echo $this->data['nav']->render();
                                     <td class="wf-100"><?= $this->getHtml('Type'); ?>
                                     <td><?= $this->getHtml('Responsible'); ?>
                             <tbody>
-                            <?php foreach ($this->data['inspections'] as $inspection) : ?>
+                            <?php foreach (($this->data['inspections'] ?? []) as $inspection) : ?>
                                 <tr>
                                     <td><?= $inspection->date->format('Y-m-d H:i'); ?>
                                     <td><?= $this->printHtml($inspection->type->getL11n()); ?>
