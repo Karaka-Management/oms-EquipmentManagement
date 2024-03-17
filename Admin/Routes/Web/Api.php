@@ -20,7 +20,7 @@ use phpOMS\Router\RouteVerb;
 return [
     '^.*/equipment/find(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiEquipmentFind',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiEquipmentFind',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => Controller::NAME,
@@ -53,7 +53,7 @@ return [
 
     '^.*/equipment/note(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiNoteCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => Controller::NAME,
@@ -62,7 +62,7 @@ return [
             ],
         ],
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentController:apiNoteUpdate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => Controller::NAME,
