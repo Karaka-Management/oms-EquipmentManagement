@@ -24,8 +24,8 @@ trait ApiControllerAttributeTrait
 {
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeTypeCreate() : void
     {
         $response = new HttpResponse();
@@ -42,8 +42,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeTypeL11nCreate() : void
     {
         $response = new HttpResponse();
@@ -60,8 +60,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeValueIntCreate() : void
     {
         $response = new HttpResponse();
@@ -80,8 +80,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeValueStrCreate() : void
     {
         $response = new HttpResponse();
@@ -99,8 +99,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeValueFloatCreate() : void
     {
         $response = new HttpResponse();
@@ -118,8 +118,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeValueDatCreate() : void
     {
         $response = new HttpResponse();
@@ -137,8 +137,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeCreate() : void
     {
         $response = new HttpResponse();
@@ -155,8 +155,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeValueCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -171,8 +171,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeTypeCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -187,8 +187,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeTypeL11nCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -203,8 +203,8 @@ trait ApiControllerAttributeTrait
 
     /**
      * @covers \Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentAttributeCreateInvalidData() : void
     {
         $response = new HttpResponse();

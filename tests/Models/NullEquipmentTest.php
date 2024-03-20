@@ -19,31 +19,23 @@ use Modules\EquipmentManagement\Models\NullEquipment;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\EquipmentManagement\Models\NullEquipment::class)]
 final class NullEquipmentTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\EquipmentManagement\Models\NullEquipment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\EquipmentManagement\Models\Equipment', new NullEquipment());
     }
 
-    /**
-     * @covers \Modules\EquipmentManagement\Models\NullEquipment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullEquipment(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\EquipmentManagement\Models\NullEquipment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullEquipment(2);
