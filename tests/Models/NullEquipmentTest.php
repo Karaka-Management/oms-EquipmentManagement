@@ -22,7 +22,7 @@ use Modules\EquipmentManagement\Models\NullEquipment;
 final class NullEquipmentTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\EquipmentManagement\Models\NullEquipment
+     * @covers \Modules\EquipmentManagement\Models\NullEquipment
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullEquipmentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Models\NullEquipment
+     * @covers \Modules\EquipmentManagement\Models\NullEquipment
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullEquipmentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Models\NullEquipment
+     * @covers \Modules\EquipmentManagement\Models\NullEquipment
      * @group module
      */
     public function testJsonSerialize() : void

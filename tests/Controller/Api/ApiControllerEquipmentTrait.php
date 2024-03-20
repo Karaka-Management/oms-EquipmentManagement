@@ -22,7 +22,7 @@ use phpOMS\Utils\RnG\Text;
 trait ApiControllerEquipmentTrait
 {
     /**
-     * @covers Modules\EquipmentManagement\Controller\ApiController
+     * @covers \Modules\EquipmentManagement\Controller\ApiController
      * @group module
      */
     public function testApiEquipmentCreate() : void

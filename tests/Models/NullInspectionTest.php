@@ -22,7 +22,7 @@ use Modules\EquipmentManagement\Models\NullInspection;
 final class NullInspectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\EquipmentManagement\Models\NullInspection
+     * @covers \Modules\EquipmentManagement\Models\NullInspection
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullInspectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Models\NullInspection
+     * @covers \Modules\EquipmentManagement\Models\NullInspection
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullInspectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\EquipmentManagement\Models\NullInspection
+     * @covers \Modules\EquipmentManagement\Models\NullInspection
      * @group module
      */
     public function testJsonSerialize() : void
