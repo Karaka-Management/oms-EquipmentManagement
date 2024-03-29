@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/equipment/attribute/type/list(\?.*$|$)' => [
+    '^/equipment/attribute/type/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeTypeList',
             'verb'       => RouteVerb::GET,
@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/attribute/type/view(\?.*$|$)' => [
+    '^/equipment/attribute/type/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeType',
             'verb'       => RouteVerb::GET,
@@ -40,7 +40,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/attribute/type/create(\?.*$|$)' => [
+    '^/equipment/attribute/type/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeTypeCreate',
             'verb'       => RouteVerb::GET,
@@ -51,7 +51,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/attribute/value/view(\?.*$|$)' => [
+    '^/equipment/attribute/value/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeValue',
             'verb'       => RouteVerb::GET,
@@ -62,7 +62,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/attribute/value/create(\?.*$|$)' => [
+    '^/equipment/attribute/value/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeValueCreate',
             'verb'       => RouteVerb::GET,
@@ -74,7 +74,7 @@ return [
         ],
     ],
 
-    '^.*/equipment/list(\?.*$|$)' => [
+    '^/equipment/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentList',
             'verb'       => RouteVerb::GET,
@@ -85,7 +85,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/create(\?.*$|$)' => [
+    '^/equipment/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
@@ -96,7 +96,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/view(\?.*$|$)' => [
+    '^/equipment/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentView',
             'verb'       => RouteVerb::GET,
@@ -108,7 +108,7 @@ return [
         ],
     ],
 
-    '^.*/equipment/inspection/list(\?.*$|$)' => [
+    '^/equipment/inspection/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionList',
             'verb'       => RouteVerb::GET,
@@ -119,7 +119,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/inspection/type/list(\?.*$|$)' => [
+    '^/equipment/inspection/type/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionTypeList',
             'verb'       => RouteVerb::GET,
@@ -130,7 +130,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/inspection/create(\?.*$|$)' => [
+    '^/equipment/inspection/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
@@ -141,7 +141,7 @@ return [
             ],
         ],
     ],
-    '^.*/equipment/inspection/view(\?.*$|$)' => [
+    '^/equipment/inspection/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentView',
             'verb'       => RouteVerb::GET,
