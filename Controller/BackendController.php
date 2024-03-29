@@ -16,6 +16,8 @@ namespace Modules\EquipmentManagement\Controller;
 
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeL11nMapper;
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeTypeMapper;
+use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeValueL11nMapper;
+use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeValueMapper;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
 use Modules\EquipmentManagement\Models\InspectionMapper;
@@ -54,17 +56,15 @@ final class BackendController extends Controller
      */
     public function viewEquipmentManagementAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/attribute-type-list');
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
 
-        /** @var \Modules\Attribute\Models\AttributeType[] $attributes */
-        $attributes = EquipmentAttributeTypeMapper::getAll()
+        $view->attributes = EquipmentAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
             ->execute();
 
-        $view->data['attributes'] = $attributes;
+        $view->path = 'equipment';
 
         return $view;
     }
@@ -114,23 +114,55 @@ final class BackendController extends Controller
      */
     public function viewEquipmentManagementAttributeType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/attribute-type');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1004801001, $request, $response);
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
 
-        /** @var \Modules\Attribute\Models\AttributeType $attribute */
-        $attribute = EquipmentAttributeTypeMapper::get()
+        $view->attribute = EquipmentAttributeTypeMapper::get()
             ->with('l11n')
+            ->with('defaults')
+            ->with('defaults/l11n')
             ->where('id', (int) $request->getData('id'))
             ->where('l11n/language', $response->header->l11n->language)
+            ->where('defaults/l11n/language', [$response->header->l11n->language, null])
             ->execute();
 
-        $l11ns = EquipmentAttributeTypeL11nMapper::getAll()
-            ->where('ref', $attribute->id)
+        $view->l11ns = EquipmentAttributeTypeL11nMapper::getAll()
+            ->where('ref', $view->attribute->id)
             ->execute();
 
-        $view->data['attribute'] = $attribute;
-        $view->data['l11ns']     = $l11ns;
+        $view->path = 'fleet/vehicle';
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewEquipmentManagementAttributeValue(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
+
+        $view->attribute = EquipmentAttributeValueMapper::get()
+            ->with('l11n')
+            ->where('id', (int) $request->getData('id'))
+            ->where('l11n/language', [$response->header->l11n->language, null])
+            ->execute();
+
+        $view->l11ns = EquipmentAttributeValueL11nMapper::getAll()
+            ->where('ref', $view->attribute->id)
+            ->execute();
+
+        // @todo Also find the ItemAttributeType
 
         return $view;
     }
@@ -275,13 +307,11 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/inspection-list');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008401001, $request, $response);
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008404001, $request, $response);
 
-        $list = InspectionMapper::getAll()
+        $view->data['inspections'] = InspectionMapper::getAll()
             ->sort('id', 'DESC')
-            ->execute();
-
-        $view->data['inspections'] = $list;
+            ->executeGetArray();
 
         return $view;
     }
