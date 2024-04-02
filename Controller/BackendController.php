@@ -56,13 +56,13 @@ final class BackendController extends Controller
      */
     public function viewEquipmentManagementAttributeTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeListView($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
 
         $view->attributes = EquipmentAttributeTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
-            ->execute();
+            ->executeGetArray();
 
         $view->path = 'equipment';
 
@@ -93,7 +93,7 @@ final class BackendController extends Controller
             ->with('type/l11n')
             ->where('type/l11n/language', $response->header->l11n->language)
             ->sort('id', 'DESC')
-            ->execute();
+            ->executeGetArray();
 
         $view->data['equipments'] = $list;
 
@@ -114,7 +114,7 @@ final class BackendController extends Controller
      */
     public function viewEquipmentManagementAttributeType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeTypeView($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
 
         $view->attribute = EquipmentAttributeTypeMapper::get()
@@ -128,7 +128,7 @@ final class BackendController extends Controller
 
         $view->l11ns = EquipmentAttributeTypeL11nMapper::getAll()
             ->where('ref', $view->attribute->id)
-            ->execute();
+            ->executeGetArray();
 
         $view->path = 'fleet/vehicle';
 
@@ -149,7 +149,7 @@ final class BackendController extends Controller
      */
     public function viewEquipmentManagementAttributeValue(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
-        $view = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
+        $view              = new \Modules\Attribute\Theme\Backend\Components\AttributeValueView($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008405001, $request, $response);
 
         $view->attribute = EquipmentAttributeValueMapper::get()
@@ -160,7 +160,7 @@ final class BackendController extends Controller
 
         $view->l11ns = EquipmentAttributeValueL11nMapper::getAll()
             ->where('ref', $view->attribute->id)
-            ->execute();
+            ->executeGetArray();
 
         // @todo Also find the ItemAttributeType
 
@@ -241,7 +241,7 @@ final class BackendController extends Controller
             ->with('type/l11n')
             ->where('reference', $equipment->id)
             ->where('type/l11n/language', $response->header->l11n->language)
-            ->execute();
+            ->executeGetArray();
 
         $view->data['inspections'] = $inspections;
 
@@ -272,12 +272,12 @@ final class BackendController extends Controller
         $equipmentTypes = EquipmentTypeMapper::getAll()
             ->with('l11n')
             ->where('l11n/language', $response->header->l11n->language)
-            ->execute();
+            ->executeGetArray();
 
         $view->data['types'] = $equipmentTypes;
 
         $units = UnitMapper::getAll()
-            ->execute();
+            ->executeGetArray();
 
         $view->data['units'] = $units;
 
@@ -337,7 +337,7 @@ final class BackendController extends Controller
 
         $list = InspectionTypeMapper::getAll()
             ->sort('id', 'DESC')
-            ->execute();
+            ->executeGetArray();
 
         $view->data['inspections'] = $list;
 

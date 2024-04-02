@@ -27,7 +27,7 @@ trait ApiControllerEquipmentTrait
     #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiEquipmentCreate() : void
     {
-        $equipmentType      = EquipmentTypeMapper::getAll()->execute();
+        $equipmentType      = EquipmentTypeMapper::getAll()->executeGetArray();
         $equipmentTypeCount = \count($equipmentType);
 
         $response = new HttpResponse();
