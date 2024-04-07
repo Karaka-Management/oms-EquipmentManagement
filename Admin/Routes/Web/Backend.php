@@ -22,7 +22,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeTypeList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -34,7 +34,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeType',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -46,7 +46,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeTypeCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -58,7 +58,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeValue',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -70,7 +70,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementAttributeValueCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -83,7 +83,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -95,7 +95,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -107,7 +107,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentView',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -120,7 +120,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -132,7 +132,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionTypeList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -144,7 +144,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -156,7 +156,7 @@ return [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentView',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,

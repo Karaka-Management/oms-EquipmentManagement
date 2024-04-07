@@ -39,7 +39,7 @@ echo $this->data['nav']->render();
                     ++$count;
                     $url = UriFactory::build('{/base}/equipment/inspection/view?id=' . $inspection->id);
                 ?>
-                    <tr data-href="<?= $url ?>">
+                    <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $inspection->next?->format('Y-m-d H:i'); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($inspection->type->getL11n()); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->data['equipment'][$inspection->reference]->name; ?></a>
@@ -69,7 +69,7 @@ echo $this->data['nav']->render();
                     ++$count;
                     $url = UriFactory::build('{/base}/equipment/inspection/view?id=' . $inspection->id);
                 ?>
-                    <tr data-href="<?= $url ?>">
+                    <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $inspection->date?->format('Y-m-d H:i'); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($inspection->type->getL11n()); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->data['equipment'][$inspection->reference]->name; ?></a>
