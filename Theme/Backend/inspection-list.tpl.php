@@ -12,6 +12,8 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Uri\UriFactory;
+
 echo $this->data['nav']->render();
 ?>
 
@@ -23,8 +25,8 @@ echo $this->data['nav']->render();
                 <thead>
                     <tr>
                         <td><?= $this->getHtml('Date'); ?>
-                        <td class="wf-100"><?= $this->getHtml('Type'); ?>
-                        <td><?= $this->getHtml('Responsible'); ?>
+                        <td><?= $this->getHtml('Type'); ?>
+                        <td class="wf-100"><?= $this->getHtml('Equipment'); ?>
                 <tbody>
                 <?php
                 $count = 0;
@@ -35,11 +37,12 @@ echo $this->data['nav']->render();
                     }
 
                     ++$count;
+                    $url = UriFactory::build('{/base}/equipment/inspection/view?id=' . $inspection->id);
                 ?>
-                    <tr>
-                        <td><?= $inspection->next->format('Y-m-d H:i'); ?>
-                        <td><?= $this->printHtml($inspection->type->getL11n()); ?>
-                        <td>
+                    <tr data-href="<?= $url ?>">
+                        <td><a href="<?= $url; ?>"><?= $inspection->next?->format('Y-m-d H:i'); ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->printHtml($inspection->type->getL11n()); ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->data['equipment'][$inspection->reference]->name; ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                 <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
@@ -57,18 +60,19 @@ echo $this->data['nav']->render();
                 <thead>
                     <tr>
                         <td><?= $this->getHtml('Date'); ?>
-                        <td class="wf-100"><?= $this->getHtml('Type'); ?>
-                        <td><?= $this->getHtml('Responsible'); ?>
+                        <td><?= $this->getHtml('Type'); ?>
+                        <td class="wf-100"><?= $this->getHtml('Equipment'); ?>
                 <tbody>
                 <?php
                 $count = 0;
                 foreach (($this->data['inspections'] ?? []) as $inspection) :
                     ++$count;
+                    $url = UriFactory::build('{/base}/equipment/inspection/view?id=' . $inspection->id);
                 ?>
-                    <tr>
-                        <td><?= $inspection->date->format('Y-m-d H:i'); ?>
-                        <td><?= $this->printHtml($inspection->type->getL11n()); ?>
-                        <td>
+                    <tr data-href="<?= $url ?>">
+                        <td><a href="<?= $url; ?>"><?= $inspection->date?->format('Y-m-d H:i'); ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->printHtml($inspection->type->getL11n()); ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->data['equipment'][$inspection->reference]->name; ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                 <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

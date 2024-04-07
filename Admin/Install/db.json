@@ -110,6 +110,11 @@
                 "type": "VARCHAR(255)",
                 "null": false
             },
+            "equipmgmt_equipment_code": {
+                "name": "equipmgmt_equipment_code",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
             "equipmgmt_equipment_status": {
                 "name": "equipmgmt_equipment_status",
                 "type": "TINYINT",

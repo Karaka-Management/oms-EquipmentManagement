@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\Localization\BaseStringL11nType;
 
 /**
- * Item mapper class.
+ * EquipmentType mapper class.
  *
  * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0

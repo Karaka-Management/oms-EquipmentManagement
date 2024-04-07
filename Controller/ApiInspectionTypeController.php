@@ -109,7 +109,7 @@ final class ApiInspectionTypeController extends Controller
     }
 
     /**
-     * Api method to create item attribute type
+     * Api method to create InspectionType
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -136,7 +136,7 @@ final class ApiInspectionTypeController extends Controller
     }
 
     /**
-     * Method to create item attribute from request.
+     * Method to create InspectionType from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -157,7 +157,7 @@ final class ApiInspectionTypeController extends Controller
     }
 
     /**
-     * Validate item attribute create request
+     * Validate InspectionType create request
      *
      * @param RequestAbstract $request Request
      *
@@ -177,7 +177,7 @@ final class ApiInspectionTypeController extends Controller
     }
 
     /**
-     * Api method to create item attribute l11n
+     * Api method to create InspectionType l11n
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -204,7 +204,7 @@ final class ApiInspectionTypeController extends Controller
     }
 
     /**
-     * Method to create item attribute l11n from request.
+     * Method to create InspectionType l11n from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -223,7 +223,7 @@ final class ApiInspectionTypeController extends Controller
     }
 
     /**
-     * Validate item attribute l11n create request
+     * Validate InspectionType l11n create request
      *
      * @param RequestAbstract $request Request
      *

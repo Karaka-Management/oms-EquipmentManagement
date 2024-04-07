@@ -20,6 +20,7 @@ use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeValueL11nMapp
 use Modules\EquipmentManagement\Models\Attribute\EquipmentAttributeValueMapper;
 use Modules\EquipmentManagement\Models\EquipmentMapper;
 use Modules\EquipmentManagement\Models\EquipmentTypeMapper;
+use Modules\EquipmentManagement\Models\Inspection;
 use Modules\EquipmentManagement\Models\InspectionMapper;
 use Modules\EquipmentManagement\Models\InspectionTypeMapper;
 use Modules\Media\Models\MediaMapper;
@@ -220,7 +221,7 @@ final class BackendController extends Controller
             ->with('attributes/type')
             ->with('attributes/value')
             ->with('attributes/type/l11n')
-            //->with('attributes/value/l11n')
+            ->with('attributes/value/l11n')
             ->with('files')
             ->with('files/types')
             ->with('type')
@@ -231,7 +232,7 @@ final class BackendController extends Controller
             ->where('type/l11n/language', $response->header->l11n->language)
             ->where('fuelType/l11n/language', $response->header->l11n->language)
             ->where('attributes/type/l11n/language', $response->header->l11n->language)
-            //->where('attributes/value/l11n/language', $response->header->l11n->language)
+            ->where('attributes/value/l11n/language', [$response->header->l11n->language, null])
             ->execute();
 
         $view->data['equipment'] = $equipment;
@@ -310,7 +311,16 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008404001, $request, $response);
 
         $view->data['inspections'] = InspectionMapper::getAll()
+            ->with('type')
+            ->with('type/l11n')
+            ->where('type/l11n/language', $request->header->l11n->language)
             ->sort('id', 'DESC')
+            ->limit(100)
+            ->executeGetArray();
+
+        $view->data['equipment'] = EquipmentMapper::getAll()
+            ->with('account')
+            ->where('id', \array_map(function (Inspection $inspection) { return $inspection->reference; }, $view->data['inspections']))
             ->executeGetArray();
 
         return $view;

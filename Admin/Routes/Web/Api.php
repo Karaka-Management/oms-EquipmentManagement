@@ -23,6 +23,7 @@ return [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiEquipmentFind',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -36,6 +37,7 @@ return [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiEquipmentAttributeCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -46,6 +48,7 @@ return [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiEquipmentAttributeUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -59,6 +62,7 @@ return [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiNoteCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
@@ -69,6 +73,7 @@ return [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiNoteUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => Controller::NAME,
                 'type'   => PermissionType::READ,
