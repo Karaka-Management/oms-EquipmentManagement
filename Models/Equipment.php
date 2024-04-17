@@ -19,7 +19,7 @@ use phpOMS\Localization\BaseStringL11nType;
 /**
  * Equipment class.
  *
- * @package Modules\Attribute\Models
+ * @package Modules\EquipmentManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0

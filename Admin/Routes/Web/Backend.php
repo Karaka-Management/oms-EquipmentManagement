@@ -142,7 +142,7 @@ return [
     ],
     '^/equipment/inspection/create(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentCreate',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionCreate',
             'verb'       => RouteVerb::GET,
             'active'     => true,
             'permission' => [
@@ -154,7 +154,7 @@ return [
     ],
     '^/equipment/inspection/view(\?.*$|$)' => [
         [
-            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementEquipmentView',
+            'dest'       => '\Modules\EquipmentManagement\Controller\BackendController:viewEquipmentManagementInspectionView',
             'verb'       => RouteVerb::GET,
             'active'     => true,
             'permission' => [
