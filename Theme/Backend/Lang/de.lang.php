@@ -20,7 +20,6 @@ return ['EquipmentManagement' => [
     'Attributes'    => 'Attribute',
     'Costs'         => 'Kosten',
     'Date'          => 'Datum',
-    'Driver'        => 'Fahrer',
     'EIN'           => 'WKN',
     'Ein'           => 'Ein',
     'End'           => 'Ende',
