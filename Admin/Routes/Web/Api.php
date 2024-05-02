@@ -40,7 +40,7 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
+                'type'   => PermissionType::CREATE,
                 'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
@@ -51,7 +51,7 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
+                'type'   => PermissionType::MODIFY,
                 'state'  => PermissionCategory::EQUIPMENT,
             ],
         ],
@@ -65,8 +65,8 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::EQUIPMENT,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::EQUIPMENT_NOTE,
             ],
         ],
         [
@@ -76,8 +76,8 @@ return [
             'active'     => true,
             'permission' => [
                 'module' => Controller::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::EQUIPMENT,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::EQUIPMENT_NOTE,
             ],
         ],
     ],

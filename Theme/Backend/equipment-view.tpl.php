@@ -54,6 +54,10 @@ echo $this->data['nav']->render();
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
+                    <form id="iEquipmentForm"
+                        method="<?= $isNew ? 'PUT' : 'POST'; ?>"
+                        action="<?= UriFactory::build('{/api}equipment?csrf={$CSRF}'); ?>"
+                        <?= $isNew ? 'data-redirect="' . UriFactory::build('{/base}/equipment/view') . '?id={/0/response/id}"' : ''; ?>>
                         <div class="portlet-head"><?= $this->getHtml('Equipment'); ?></div>
                         <div class="portlet-body">
                             <div class="form-group">
@@ -121,6 +125,7 @@ echo $this->data['nav']->render();
                                 <input id="iSaveSubmit" type="Submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             <?php endif; ?>
                         </div>
+                        </form>
                     </section>
                 </div>
 
