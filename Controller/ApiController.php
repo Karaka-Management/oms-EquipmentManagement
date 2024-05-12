@@ -193,7 +193,7 @@ final class ApiController extends Controller
                 pathSettings: PathSettings::FILE_PATH,
                 hasAccountRelation: false,
                 readContent: $request->getDataBool('parse_content') ?? false,
-                type: $request->getDataInt('type'),
+                tag: $request->getDataInt('tag'),
                 rel: $equipment->id,
                 mapper: EquipmentMapper::class,
                 field: 'files'
