@@ -80,6 +80,11 @@ echo $this->data['nav']->render();
                             </div>
 
                             <div class="form-group">
+                                <label for="iEquipmentLocation"><?= $this->getHtml('Location'); ?></label>
+                                <input type="text" id="iEquipmentLocation" name="location" value="<?= $this->printHtml($asset->number); ?>">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="iEquipmentEnd"><?= $this->getHtml('Type'); ?></label>
                                 <select id="iEquipmentEnd" name="equipment_type">
                                     <?php foreach ($equipmentTypes as $type) : ?>

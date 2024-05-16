@@ -287,6 +287,10 @@ final class Installer extends InstallerAbstract
         $module = $app->moduleManager->get('EquipmentManagement', 'ApiEquipmentAttribute');
 
         foreach ($attributes as $attribute) {
+            if (!isset($attribute['values'])) {
+                continue;
+            }
+
             $itemAttrValue[$attribute['name']] = [];
 
             /** @var array $value */

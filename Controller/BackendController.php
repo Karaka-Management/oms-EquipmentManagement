@@ -217,7 +217,6 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/EquipmentManagement/Theme/Backend/equipment-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1008402001, $request, $response);
 
-        // @todo This langauge filtering doesn't work. But it was working with the old mappers. Maybe there is a bug in the where() definition. Need to inspect the actual query.
         $view->data['equipment'] = EquipmentMapper::get()
             ->with('attributes')
             ->with('attributes/type')
@@ -271,6 +270,11 @@ final class BackendController extends Controller
             ->executeGetArray();
 
         $view->data['units'] = UnitMapper::getAll()
+            ->executeGetArray();
+
+        $view->data['attributeTypes'] = EquipmentAttributeTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $response->header->l11n->language)
             ->executeGetArray();
 
         $view->data['attributeView']                               = new \Modules\Attribute\Theme\Backend\Components\AttributeView($this->app->l11nManager, $request, $response);

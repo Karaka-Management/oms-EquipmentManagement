@@ -32,6 +32,8 @@ class Equipment implements \JsonSerializable
 
     public string $code = '';
 
+    public string $location = '';
+
     public int $status = EquipmentStatus::ACTIVE;
 
     public BaseStringL11nType $type;

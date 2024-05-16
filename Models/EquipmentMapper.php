@@ -42,6 +42,7 @@ final class EquipmentMapper extends DataMapperFactory
         'equipmgmt_equipment_id'          => ['name' => 'equipmgmt_equipment_id',         'type' => 'int',      'internal' => 'id'],
         'equipmgmt_equipment_name'        => ['name' => 'equipmgmt_equipment_name',      'type' => 'string',   'internal' => 'name'],
         'equipmgmt_equipment_code'        => ['name' => 'equipmgmt_equipment_code',      'type' => 'string',   'internal' => 'code'],
+        'equipmgmt_equipment_location'    => ['name' => 'equipmgmt_equipment_location',      'type' => 'string',   'internal' => 'location'],
         'equipmgmt_equipment_status'      => ['name' => 'equipmgmt_equipment_status',      'type' => 'int',   'internal' => 'status'],
         'equipmgmt_equipment_info'        => ['name' => 'equipmgmt_equipment_info',      'type' => 'string',   'internal' => 'info'],
         'equipmgmt_equipment_unit'        => ['name' => 'equipmgmt_equipment_unit',      'type' => 'int',   'internal' => 'unit'],
