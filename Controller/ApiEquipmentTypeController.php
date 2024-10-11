@@ -74,7 +74,7 @@ final class ApiEquipmentTypeController extends Controller
     {
         $equipmentType = new BaseStringL11nType();
         $equipmentType->setL11n(
-            $request->getDataString('title') ?? '',
+            $request->getDataString('content') ?? '',
             ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
         );
         $equipmentType->title = $request->getDataString('name') ?? '';
@@ -94,7 +94,7 @@ final class ApiEquipmentTypeController extends Controller
     private function validateEquipmentTypeCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = !$request->hasData('title'))
+        if (($val['content'] = !$request->hasData('content'))
         ) {
             return $val;
         }
@@ -141,9 +141,9 @@ final class ApiEquipmentTypeController extends Controller
     private function createEquipmentTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
         $equipmentTypeL11n           = new BaseStringL11n();
-        $equipmentTypeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $equipmentTypeL11n->ref      = $request->getDataInt('ref') ?? 0;
         $equipmentTypeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
-        $equipmentTypeL11n->content  = $request->getDataString('title') ?? '';
+        $equipmentTypeL11n->content  = $request->getDataString('content') ?? '';
 
         return $equipmentTypeL11n;
     }
@@ -160,8 +160,8 @@ final class ApiEquipmentTypeController extends Controller
     private function validateEquipmentTypeL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['type'] = !$request->hasData('type'))
+        if (($val['content'] = !$request->hasData('content'))
+            || ($val['ref'] = !$request->hasData('ref'))
         ) {
             return $val;
         }

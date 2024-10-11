@@ -154,7 +154,7 @@ echo $this->data['nav']->render();
                     $equipment->attributes,
                     $this->data['attributeTypes'] ?? [],
                     $this->data['units'] ?? [],
-                    '{/api}fleet/equipment/attribute?csrf={$CSRF}',
+                    '{/api}equipment/attribute?csrf={$CSRF}',
                     $equipment->id
                     );
                 ?>
@@ -163,18 +163,18 @@ echo $this->data['nav']->render();
 
         <input type="radio" id="c-tab-3" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-3' ? ' checked' : ''; ?>>
         <div class="tab col-simple">
-            <?= $this->data['media-upload']->render('equipment-file', 'files', '', $equipment->files); ?>
+            <?= $this->data['media-upload']->render('equipment-file', 'files', '', $equipment->files, '{/api}equipment/file?csrf={$CSRF}', (string) $equipment->id); ?>
         </div>
 
         <input type="radio" id="c-tab-4" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-4' ? ' checked' : ''; ?>>
         <div class="tab">
-            <?= $this->data['equipment-notes']->render('equipment-notes', '', $equipment->notes); ?>
+            <?= $this->data['equipment-notes']->render('equipment-notes', '', $equipment->notes, '{/api}equipment/note?csrf={$CSRF}', (string) $equipment->id); ?>
         </div>
 
         <input type="radio" id="c-tab-5" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-5' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <a class="button" href="<?= UriFactory::build('{/base}/fleet/inspection/create?equipment=' . $equipment->id); ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
+                <a class="button" href="<?= UriFactory::build('{/base}/equipment/inspection/create?equipment=' . $equipment->id); ?>"><?= $this->getHtml('Create', '0', '0'); ?></a>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">

@@ -32,6 +32,45 @@ return [
         ],
     ],
 
+    '^.*/equipment(\?.*|$)$' => [
+        [
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiEquipmentCreate',
+            'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::EQUIPMENT,
+            ],
+        ],
+        [
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiEquipmentUpdate',
+            'verb'       => RouteVerb::SET,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionCategory::EQUIPMENT,
+            ],
+        ],
+    ],
+
+    '^.*/equipment/file(\?.*|$)$' => [
+        [
+            'dest'       => '\Modules\EquipmentManagement\Controller\ApiController:apiMediaAddToEquipment',
+            'verb'       => RouteVerb::PUT,
+            'csrf'       => true,
+            'active'     => true,
+            'permission' => [
+                'module' => Controller::NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::EQUIPMENT,
+            ],
+        ],
+    ],
+
     '^.*/equipment/attribute(\?.*$|$)' => [
         [
             'dest'       => '\Modules\EquipmentManagement\Controller\ApiEquipmentAttributeController:apiEquipmentAttributeCreate',
