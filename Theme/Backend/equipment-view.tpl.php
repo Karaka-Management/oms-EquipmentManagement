@@ -81,7 +81,7 @@ echo $this->data['nav']->render();
 
                             <div class="form-group">
                                 <label for="iEquipmentLocation"><?= $this->getHtml('Location'); ?></label>
-                                <input type="text" id="iEquipmentLocation" name="location" value="<?= $this->printHtml($asset->number); ?>">
+                                <input type="text" id="iEquipmentLocation" name="location" value="<?= $this->printHtml($equipment->location); ?>">
                             </div>
 
                             <div class="form-group">
@@ -134,6 +134,7 @@ echo $this->data['nav']->render();
                     </section>
                 </div>
 
+                <?php if (!$isNew) : ?>
                 <div class="col-xs-12 col-md-6">
                     <section class="portlet">
                         <div class="portlet-body">
@@ -143,6 +144,7 @@ echo $this->data['nav']->render();
                         </div>
                     </section>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
 
